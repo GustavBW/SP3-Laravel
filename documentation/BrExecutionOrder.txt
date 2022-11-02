@@ -1,0 +1,15 @@
+beertype enum
+state enum
+
+afvent status 4 "idle"
+check inventory
+check maintenance
+set beer type
+set batch id
+set command type start
+change cmd request
+afvent status 17 "complete"
+
+read data
+set command type reset (1)
+change cmd request
