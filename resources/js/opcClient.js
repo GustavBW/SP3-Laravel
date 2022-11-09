@@ -29,43 +29,44 @@ export const productionState = {
     DEACTIVATING: 18,
     ACTIVATING: 19
 };
-const nodePath = "Root/Objects/PLC/Modules/<Default>/Program/Cube/";
-export const nodes = {  //Useless. User ns and other stuff instead
-    path: nodePath,     //e.g. "ns=6;s=::Program:FillingInventory"
+
+export const nodes = {  //Useless. User ns and other stuff instead "::" er "<Default>"
+                        //e.g. "ns=6;s=::Program:FillingInventory"
     admin: {
-        CurrentRecipe: nodePath + "Admin/Parameter[0]/Value",
-        ProductsProduced: nodePath + "Admin/ProdProcessedCount",
-        ProductsFailed: nodePath + "Admin/ProdDefectiveCount",
-        StopReason: nodePath + "Admin/StopReason/ID"
+        CurrentRecipe: "ns=6;s=::Program:Cube.Admin.Parameter[0].Value",
+        ProductsProduced: "ns=6;s=::Program:Cube.Admin.ProdProcessedCount",
+        ProductsFailed: "ns=6;s=::Program:Cube.Admin.ProdDefectiveCount",
+        StopReason: "ns=6;s=::Program:Cube.Admin.StopReason.ID"
     },
     status: {
-        CurrentState: nodePath + "Status/StateCurrent",
-        CurrentProductionSpeed: nodePath + "Status/MachSpeed",
-        ProductionSpeed: nodePath + "Status/CurMachSpeed",
-        BatchId: nodePath + "Status/Parameter[0]/Value",
-        BatchQuantity: nodePath + "Status/Parameter[1]/Value",
-        BatchHumidity: nodePath + "Status/Parameter[2]/Value",
-        BatchTemperature: nodePath + "Status/Parameter[3]/Value",
-        Vibrations: nodePath + "Status/Parameter[4]/Value"
+        CurrentState: "",
+        CurrentProductionSpeed: "ns=6;s=::Program:Cube.Status.CurMachSpeed",
+        ProductionSpeed: "ns=6;s=::Program:Cube.Status.MachSpeed",
+        BatchId: "ns=6;s=::Program:Cube.Status.Parameter[0].Value",
+        BatchQuantity: "ns=6;s=::Program:Cube.Status.Parameter[1].Value",
+        BatchHumidity: "ns=6;s=::Program:Cube.Status.Parameter[2].Value",
+        BatchTemperature: "ns=6;s=::Program:Cube.Status.Parameter[3].Value",
+        Vibrations: "ns=6;s=::Program:Cube.Status.Parameter[4].Value"
     },
     command: {
-        SetSpeed: nodePath + "Command/MachSpeed",
-        SetCommand: nodePath + "Command/CntrlCmd",
-        Execute: nodePath + "Command/CmdChangeRequest",
-        SetBatchId: nodePath + "Command/Parameter[0]/Value",
-        SetRecipe: nodePath + "Command/Parameter[1]/Value",
-        SetQuantity: nodePath + "Command/Parameter[2]/Value"
+        SetSpeed: "ns=6;s=::Program:Cube.Command.MachSpeed",
+        SetCommand: "ns=6;s=::Program:Cube.Command.CntrlCmd",
+        Execute: "ns=6;s=::Program:Cube.Command.CmdChangeRequest",
+        SetBatchId: "ns=6;s=::Program:Cube.Command.Parameter[0].Value",
+        SetRecipe: "ns=6;s=::Program:Cube.Command.Parameter[1].Value",
+        SetQuantity: "ns=6;s=::Program:Cube.Command.Parameter[2].Value"
     },
     inventory: {
-        Barley: nodePath + "Inventory/Barley",
-        Hops: nodePath + "Inventory/Hops",
-        Malt: nodePath + "Inventory/Malt",
-        Wheat: nodePath + "Inventory/Wheat",
-        Yeast: nodePath + "Inventory/Yeast"
+        isFilling: "ns=6;s=::Program:FillingInventory",
+        Barley: "ns=6;s=::Program:Inventory.Barley",
+        Hops: "ns=6;s=::Program:Inventory.Hops",
+        Malt: "ns=6;s=::Program:Inventory.Malt",
+        Wheat: "ns=6;s=::Program:Inventory.Wheat",
+        Yeast: "ns=6;s=::Program:Inventory.Yeast"
     },
     maintenance: {
-        Counter: nodePath + "Maintenance/Counter",
-        Urgent: nodePath + "Maintenance/Trigger"
+        Counter: "ns=6;s=::Program:Maintenance.Counter",
+        Urgent: "ns=6;s=::Program:Maintenance.Trigger"
     }
 }
 
