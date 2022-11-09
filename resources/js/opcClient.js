@@ -3,8 +3,6 @@ const { OPCUAClient } = require("node-opcua");
 
 const privateClient = new OPCUAClient.create({});
 
-//client.initialize(url, setErrorText)
-
 export const batchType = {
     PILSNER: 0,
     WHEAT: 1,
@@ -33,11 +31,47 @@ export const productionState = {
     DEACTIVATING: 18,
     ACTIVATING: 19
 };
+const nodePath = `Root/Objects/PLC/Modules/<Default>/Program/Cube/`;
+export const nodes = {
+    path: nodePath,
+    admin: {
+        CurrentRecipe: nodePath + "Admin/Parameter[0]/Value",
+        ProductsProduced: nodePath + "Admin/ProdProcessedCount",
+        ProductsFailed: nodePath + "Admin/ProdDefectiveCount",
+        StopReason: nodePath + "Admin/StopReason/ID"
+    },
+    status: {
+        CurrentState:nodePath + "Status/StateCurrent",
+        CurrentProductionSpeed: nodePath + "Status/MachSpeed",
+        ProductionSpeed: nodePath + "Status/CurMachSpeed",
+        BatchId: nodePath + "Status/Parameter[0]/Value",
+        BatchQuantity: nodePath + "Status/Parameter[1]/Value",
+        BatchHumidity: nodePath + "Status/Parameter[2]/Value",
+        BatchTemperature: nodePath + "Status/Parameter[3]/Value",
+        Vibrations: nodePath + "Status/Parameter[4]/Value"
+    },
+    command: {
+        SetSpeed: nodePath + "Command/MachSpeed",
+        SetCommand: nodePath + "Command/CntrlCmd",
+        Execute: nodePath + "Command/CmdChangeRequest",
+        SetBatchId: nodePath + "Command/Parameter[0]/Value",
+        SetRecipe: nodePath + "Command/Parameter[1]/Value",
+        SetQuantity: nodePath + "Command/Parameter[2]/Value"
+    },
+    inventory: {
+        Barley: nodePath + "Inventory/Barley",
+        Hops: nodePath + "Inventory/Hops",
+        Malt: nodePath + "Inventory/Malt",
+        Wheat: nodePath + "Inventory/Wheat",
+        Yeast: nodePath + "Inventory/Yeast"
+    },
+    maintenance: {
+        Counter: nodePath + "Maintenance/Counter",
+        Urgent: nodePath + "Maintenance/Trigger"
+    }
+}
 
 export const client = {
-    nodes: {
-        CommandTrigger: "id"
-    },
     endpoints: null,
     server: "",
     DEFAULT_SPEED: 1,
@@ -45,7 +79,7 @@ export const client = {
     DEFAULT_BEER: batchType.PILSNER,
     initialize: async (url, callback) => {
         let onConnect = (error) => {
-            if(error != null) {
+            if(error == null) {
                 client.endpoints = privateClient.getEndpoints();
                 client.server = url;
             }
