@@ -39,7 +39,7 @@ export const nodes = {  //Useless. User ns and other stuff instead "::" er "<Def
         StopReason: "ns=6;s=::Program:Cube.Admin.StopReason.ID"
     },
     status: {
-        CurrentState: "",
+        CurrentState: "ns=6;s=::Program:Cube.Status.StateCurrent",
         CurrentProductionSpeed: "ns=6;s=::Program:Cube.Status.CurMachSpeed",
         ProductionSpeed: "ns=6;s=::Program:Cube.Status.MachSpeed",
         BatchId: "ns=6;s=::Program:Cube.Status.Parameter[0].Value",
@@ -99,9 +99,15 @@ export const client = {
         //Set cmd type start
         //Change cmd request
     //},
-    executeOrder: (parameters, callback) => {
+    executeOrder: async (parameters, callback) => {
         //Check if connected to server. If not, return error
         //set values of null or undefined. (Or not declared on object "parameters")
+        let machineCurrentState = await client.getNodeValue(nodes.status.CurrentState,null);
+        if(machineCurrentState !== productionState.IDLE){ //Apparently "!==" is the better way to do it but will
+                                                            //throw an error if both types aren't int's
+            return new Error("Machine is not idle, current state: " + machineCurrentState);
+        }
+
         parameters.speed = parameters.speed || client.DEFAULT_SPEED;
         parameters.amount = parameters.amount || client.DEFAULT_AMOUNT;
         parameters.beerType = parameters.beerType || client.DEFAULT_BEER;
@@ -111,8 +117,12 @@ export const client = {
         //Get assigned id
         parameters.id = parameters.id || dbEntry.id;
 
-        client.__session.
+        await client.setNodeValue(nodes.command.SetSpeed,parameters.speed,null,null,null);
+        await client.setNodeValue(nodes.command.SetQuantity,parameters.amount, null, null, null);
+        await client.setNodeValue(nodes.command.SetRecipe, parameters.beerType, null, null, null);
 
+
+        await client.setNodeValue(nodes.command.Execute,true, null, null, null);
         //set node values
 
         //return batch id for later queries.
@@ -123,13 +133,17 @@ export const client = {
     },
     getInventory: () => {
         return {
-            beer1: "function call to opcua server"
+            Barley: client.getNodeValue(nodes.inventory.Barley,null),
+            Wheat: client.getNodeValue(nodes.inventory.Wheat, null),
+            Hops: client.getNodeValue(nodes.inventory.Hops, null),
+            Malt: client.getNodeValue(nodes.inventory.Malt, null),
+            Yeast: client.getNodeValue(nodes.inventory.Yeast, null)
         }
     },
     awaitValue: async (node, value, callback) => {
 
     },
-    setNodeValue: (nodeId, value, indexRange, attributeId, callback) => {
+    setNodeValue: async (nodeId, value, indexRange, attributeId, callback) => {
         //set value of node
         //https://github.com/node-opcua/node-opcua/issues/970
         const writeValueOptions = {
@@ -138,11 +152,17 @@ export const client = {
             indexRange: indexRange,
             attributeId: attributeId
         };
-        client.__session.write(writeValueOptions, callback);
+        await client.__session.write(writeValueOptions, callback);
         //privateClient.createSession().then(e => e.write)
     },
-    getNodeValue: (nodeId, callback) => {
-        client.__session.read(nodeId,callback)
+    getNodeValue: async (nodeId, callback) => {
+        let result = null;
+        let func = (value) => {
+            result = value;
+            callback(value);
+        }
+        await client.__session.read(nodeId,callback);
+        return result.value;
         //privateClient.createSession().then(e => e.read())
     }
 }
