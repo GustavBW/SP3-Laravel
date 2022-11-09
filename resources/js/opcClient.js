@@ -73,14 +73,19 @@ export const nodes = {  //Useless. User ns and other stuff instead "::" er "<Def
 export const client = {
     endpoints: null,
     server: "",
+    __session: null,
     DEFAULT_SPEED: 1,
     DEFAULT_AMOUNT: 1,
     DEFAULT_BEER: batchType.PILSNER,
     initialize: async (url, callback) => {
-        let onConnect = (error) => {
+        let onCreateSession = async (error) => {
+            callback(error);
+        }
+        let onConnect = async (error) => {
             if(error == null) {
                 client.endpoints = privateClient.getEndpoints();
                 client.server = url;
+                client.__session = await privateClient.createSession(null,onCreateSession);
             }
             callback(error);
         }
@@ -106,6 +111,8 @@ export const client = {
         //Get assigned id
         parameters.id = parameters.id || dbEntry.id;
 
+        client.__session.
+
         //set node values
 
         //return batch id for later queries.
@@ -122,12 +129,21 @@ export const client = {
     awaitValue: async (node, value, callback) => {
 
     },
-    setNode: (node, value, callback) => {
+    setNodeValue: (nodeId, value, indexRange, attributeId, callback) => {
         //set value of node
         //https://github.com/node-opcua/node-opcua/issues/970
+        const writeValueOptions = {
+            nodeId: nodeId,
+            value: value,
+            indexRange: indexRange,
+            attributeId: attributeId
+        };
+        client.__session.write(writeValueOptions, callback);
+        //privateClient.createSession().then(e => e.write)
     },
-    getNode: (node, callback) => {
-
+    getNodeValue: (nodeId, callback) => {
+        client.__session.read(nodeId,callback)
+        //privateClient.createSession().then(e => e.read())
     }
 }
 
