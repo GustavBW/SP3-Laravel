@@ -1,6 +1,5 @@
 import {OPCUAClientBase} from "node-opcua";
 const { OPCUAClient } = require("node-opcua");
-
 const privateClient = new OPCUAClient.create({});
 
 export const batchType = {
@@ -11,7 +10,6 @@ export const batchType = {
     ALE: 4,
     ALCOHOL_FREE: 5
 };
-
 export const productionState = {
     DEACTIVATED: 0,
     CLEARING: 1,
@@ -31,9 +29,9 @@ export const productionState = {
     DEACTIVATING: 18,
     ACTIVATING: 19
 };
-const nodePath = `Root/Objects/PLC/Modules/<Default>/Program/Cube/`;
-export const nodes = {
-    path: nodePath,
+const nodePath = "Root/Objects/PLC/Modules/<Default>/Program/Cube/";
+export const nodes = {  //Useless. User ns and other stuff instead
+    path: nodePath,     //e.g. "ns=6;s=::Program:FillingInventory"
     admin: {
         CurrentRecipe: nodePath + "Admin/Parameter[0]/Value",
         ProductsProduced: nodePath + "Admin/ProdProcessedCount",
@@ -41,7 +39,7 @@ export const nodes = {
         StopReason: nodePath + "Admin/StopReason/ID"
     },
     status: {
-        CurrentState:nodePath + "Status/StateCurrent",
+        CurrentState: nodePath + "Status/StateCurrent",
         CurrentProductionSpeed: nodePath + "Status/MachSpeed",
         ProductionSpeed: nodePath + "Status/CurMachSpeed",
         BatchId: nodePath + "Status/Parameter[0]/Value",
@@ -125,6 +123,7 @@ export const client = {
     },
     setNode: (node, value, callback) => {
         //set value of node
+        //https://github.com/node-opcua/node-opcua/issues/970
     },
     getNode: (node, callback) => {
 
