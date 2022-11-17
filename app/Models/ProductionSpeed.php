@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProductionSpeed extends Model
 {
     use HasFactory;
-    protected $table = 'production_speeds';
-    protected $fillables = ['bpm'];
+
+    public function beer()
+    {
+        return $this->belongsTo(Beer::class);
+    }
 
 }

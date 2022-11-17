@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Access extends Model
 {
     use HasFactory;
-    protected $table = 'access';
-    protected $fillables = ['name'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+
+    }
 
 }
