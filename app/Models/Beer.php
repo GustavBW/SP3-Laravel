@@ -9,9 +9,12 @@ class Beer extends Model
 {
     use HasFactory;
 
-        public function productionspeed()
-        {
+    protected $table = 'beers';
+    protected $fillables = ['name', 'production_speed'];
+    public function production_speed()
+    {
             return $this->hasOne(ProductionSpeed::class);
-        }
+    }
 
+   
 }
