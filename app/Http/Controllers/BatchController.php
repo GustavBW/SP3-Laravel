@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class User extends Controller
+class BatchController extends Controller
 {
     /**
      * Display a listing of the resource.

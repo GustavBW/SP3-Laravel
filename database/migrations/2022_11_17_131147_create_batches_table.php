@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->bigInteger('beer_id');
             $table->integer('size');
             $table->timestamps();
         });
