@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('production_speeds', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('bpm');
         });
     }
 
