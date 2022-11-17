@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class FinishedBatches extends Model
 {
     use HasFactory;
+
+    public function batch()
+    {
+        return $this->hasMany(Batch::class);
+    }
+
 }
