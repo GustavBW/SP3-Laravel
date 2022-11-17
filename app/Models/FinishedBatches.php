@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class FinishedBatches extends Model
 {
     use HasFactory;
+    protected $table = 'finished_batches';
+    protected $fillables = ['brewed', 'failed', 'batch_id'];
 
-    public function batch()
+    public function batch_id()
     {
         return $this->hasMany(Batch::class);
     }
