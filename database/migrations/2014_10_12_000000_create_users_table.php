@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('access_id');
             $table->string('name');
-            $table->string('email')->unique();
-            //$table->string('password');
+            $table->string('PIN');
+            $table->string('password');
             $table->timestamps();
         });
     }
