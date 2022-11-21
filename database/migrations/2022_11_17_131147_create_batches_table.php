@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('size');
             $table->timestamps();
+            $table->integer('created_by');
         });
     }
 

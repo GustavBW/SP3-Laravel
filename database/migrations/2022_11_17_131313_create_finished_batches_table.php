@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('finished_batches', function (Blueprint $table) {
             $table->id();
-            $table->integer('brewed');
-            $table->integer('failed');
+            $table->integer('successful_brews');
+            $table->integer('failed_brews');
+            $table->string('state');
         });
     }
 
