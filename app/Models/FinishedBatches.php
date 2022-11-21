@@ -11,9 +11,9 @@ class FinishedBatches extends Model
     protected $table = 'finished_batches';
     protected $fillables = ['brewed', 'failed', 'batch_id'];
 
-    public function batch_id()
+    public function batch()
     {
-        return $this->hasMany(Batch::class);
+        return $this->hasOne(Batch::class);
     }
 
 }
