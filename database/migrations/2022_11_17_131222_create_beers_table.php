@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('beers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('production_speed_id');
-            $table->bigInteger('recipe_id');
+            $table->bigInteger('production_speed_id')->references('id')->on('production_speed');
+            $table->bigInteger('recipe_id') -> references('id')->on('recipe');
             $table->integer('optimal_production_speed');
-            $table->string('type');
+            $table->enum('type', ['pilsner', 'wheat', 'ipa', 'stout', 'ale', 'alcohol free']);
         });
     }
 

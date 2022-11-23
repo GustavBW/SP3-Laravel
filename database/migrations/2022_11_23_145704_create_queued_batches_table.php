@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('queued_batches', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->bigInteger('batch_id')->references('id')->on('batches');
         });
     }
 

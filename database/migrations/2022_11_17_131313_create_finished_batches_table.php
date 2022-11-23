@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('finished_batches', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('batch_id');
+            $table->bigInteger('batch_id')->references('id')->on('batches');
             $table->integer('successful_products');
             $table->integer('failed_products');
-            $table->enum('state');
         });
     }
 

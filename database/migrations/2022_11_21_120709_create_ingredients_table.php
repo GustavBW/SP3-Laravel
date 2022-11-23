@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->enum('name', ['barley', 'hops', 'malt','wheat', 'yeast']);
+            $table->integer('amount');
         });
     }
 

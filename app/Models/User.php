@@ -15,6 +15,10 @@ class User extends Authenticatable
         return $this->hasOne(Access::class);
     }
 
+    public function batches(){
+        return $this->hasMany(Batch::class);
+    }
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

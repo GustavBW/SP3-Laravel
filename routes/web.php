@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/batches/create');
 });
 
 Route::resource('users', 'UserController');
 Route::resource('batches', 'BatchController');
+
+Route::get('create', [\App\Http\Controllers\QueuedBatchController::class, 'create']);
+Route::post('create', [\App\Http\Controllers\QueuedBatchController::class, 'create'])->name('create');

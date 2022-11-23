@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('accesses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table ->enum('access_level', [1,2,3]);
         });
     }
 

@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FinishedBatches extends Model
+class FinishedBatch extends Model
 {
     use HasFactory;
     protected $table = 'finished_batches';
-    protected $fillables = ['brewed', 'failed', 'batch_id'];
+    protected $fillable = ['brewed', 'failed', 'batch_id', 'state'];
 
-    public function batch()
-    {
+    public function batch() {
         return $this->hasOne(Batch::class);
     }
 
