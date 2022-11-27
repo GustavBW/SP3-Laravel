@@ -14,4 +14,24 @@ class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * Gets the current machine status.
+     * @return int
+     */
+    public function getMachineStatus(): int
+    {
+
+        return 69;
+    }
+
+    /**
+     * Returns an array containing the levels of each resource,
+     * in order:
+     * @return int[]
+     */
+    public function getInventoryStatus()
+    {
+        return [0,1,2,3,4];
+    }
+
 }
