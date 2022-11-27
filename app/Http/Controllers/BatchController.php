@@ -38,8 +38,9 @@ class BatchController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
+     * Shows the information available on the batch.
+     * Contains BatchResult, if any
+     * Contains QueuedBatch, if any
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -81,4 +82,34 @@ class BatchController extends Controller
     {
         //
     }
+
+    /**
+     * Returns a view showing all queued batches
+     * @return View
+     */
+    public function queue()
+    {
+
+    }
+
+    /**
+     * Returns a view showing all finished batches and their results
+     * @return View
+     */
+    public function history()
+    {
+
+    }
+
+    /**
+     * Adds batch by given id to the QueuedBatches table to be executed
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function execute($id)
+    {
+
+    }
+
+
 }
