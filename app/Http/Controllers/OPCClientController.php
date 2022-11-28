@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,12 +16,20 @@ class OPCClientController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
+     * Initializes client to connect to given ip.
+     * Returns connection status code.
+     */
+    public function initialize($ip)
+    {
+        return 200;
+    }
+
+    /**
      * Gets the current machine status.
      * @return int
      */
     public function getMachineStatus(): int
     {
-
         return 69;
     }
 
@@ -33,5 +42,21 @@ class OPCClientController extends BaseController
     {
         return [0,1,2,3,4];
     }
+
+    /**
+     * @param $id
+     * @return int
+     */
+    public function executeBatch($id)
+    {
+        $batch = Batch::find($id);
+
+        if($batch != null){
+            return 200;
+        }
+
+        return 404;
+    }
+
 
 }
