@@ -10,6 +10,15 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    public function access()
+    {
+        return $this->hasOne(Access::class);
+    }
+
+    public function batches(){
+        return $this->hasMany(Batch::class);
+    }
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -17,11 +26,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name','email','access_level'];
 
     /**
      * The attributes that should be hidden for serialization.

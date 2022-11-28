@@ -1,4 +1,4 @@
-import {OPCUAClientBase} from "node-opcua";
+import {OPCUAClientBase, SessionContext} from "node-opcua";
 const { OPCUAClient } = require("node-opcua");
 const privateClient = new OPCUAClient.create({});
 

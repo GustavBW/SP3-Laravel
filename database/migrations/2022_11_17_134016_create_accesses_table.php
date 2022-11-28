@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('finished_batches', function (Blueprint $table) {
+        Schema::create('accesses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('batch_id')->references('id')->on('batches');
-            $table->integer('successful_products');
-            $table->integer('failed_products');
+            $table->string('name');
+            $table ->enum('access_level', [1,2,3]);
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('finished_batches');
+        Schema::dropIfExists('accesses');
     }
 };

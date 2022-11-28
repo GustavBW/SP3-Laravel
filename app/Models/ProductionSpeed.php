@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProductionSpeed extends Model
 {
     use HasFactory;
+
+    public function beer()
+    {
+        return $this->belongsTo(Beer::class);
+    }
+
 }
