@@ -19,7 +19,6 @@ return new class extends Migration
             $table->bigInteger('beer_id')->references('id')->on('beers');
             $table->integer('size');
             $table->timestamps();
-            $table->integer('created_by');
         });
     }
 

@@ -9,7 +9,7 @@ class FinishedBatch extends Model
 {
     use HasFactory;
     protected $table = 'finished_batches';
-    protected $fillable = ['brewed', 'failed', 'batch_id', 'state'];
+    protected $fillable = ['brewed', 'failed', 'batch_id'];
 
     public function batch() {
         return $this->hasOne(Batch::class);
