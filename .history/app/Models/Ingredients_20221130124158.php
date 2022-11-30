@@ -8,6 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredients extends Model
 {
     use HasFactory;
-    protected $table = 'ingredients';
-    protected $fillable = ['barley', 'hops', 'yeast', 'malt', 'wheat'];
 }

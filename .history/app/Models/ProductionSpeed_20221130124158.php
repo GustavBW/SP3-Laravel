@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ingredients extends Model
+class ProductionSpeed extends Model
 {
     use HasFactory;
-    protected $table = 'ingredients';
-    protected $fillable = ['barley', 'hops', 'yeast', 'malt', 'wheat'];
+
+    public function beer()
+    {
+        return $this->belongsTo(Beer::class);
+    }
+
 }

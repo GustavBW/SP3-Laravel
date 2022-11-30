@@ -15,11 +15,6 @@ return new class extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
-            $table->Integer('barley');
-            $table->Integer('hops');
-            $table->Integer('malt');
-            $table->Integer('yeast');
-            $table->Integer('wheat');
         });
     }
 

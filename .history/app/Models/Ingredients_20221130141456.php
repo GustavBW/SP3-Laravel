@@ -9,5 +9,5 @@ class Ingredients extends Model
 {
     use HasFactory;
     protected $table = 'ingredients';
-    protected $fillable = ['barley', 'hops', 'yeast', 'malt', 'wheat'];
+    protected $fillable = ['barley','hops','malt','yeast','wheat'];
 }

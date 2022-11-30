@@ -133,7 +133,10 @@ class BatchController extends Controller
     {
         $batch = Batch::find($id);
         $queuedBatch = new QueuedBatch([
-            'batch_id' => $batch->id
+            'beer_id' => $batch->beer_id,
+            'production_speed' => $batch->production_speed,
+            'size' => $batch->size,
+            'user_id' => $batch->user_id
         ]);
         $queuedBatch->save();
         return redirect('batches.queue')->with('queuedBatches', QueuedBatch::all());
