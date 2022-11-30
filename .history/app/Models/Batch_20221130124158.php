@@ -9,7 +9,7 @@ class Batch extends Model
 {
     use HasFactory;
     protected $table = 'batches';
-    protected $fillable = ['beer_id', 'size', 'user_id','production_speed'];
+    protected $fillable = ['beer_id', 'size', 'user_id'];
 
     public function beer()
     {

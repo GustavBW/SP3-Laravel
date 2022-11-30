@@ -34,11 +34,11 @@ Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('bat
 //remove batch
 Route::delete('/batch/{id}',[BatchController::class,'destroy'])->name('batch.delete');
 //update information on specified batch to equal given request body json data
-Route::put('/batch/{id}',[BatchController::class,'update'])->name('batch.update');
+Route::post('/batch/{id}',[BatchController::class,'update'])->name('batch.update');
 //view batch queue
 Route::get('/batch/queue',[BatchController::class,'viewQueue'])->name('batch.queue');
 //store new batch
-Route::post('/batch',[BatchController::class,'create'])->name('batch.create');
+Route::put('/batch',[BatchController::class,'create'])->name('batch.create');
 
 //NOT PIN LOCKED
 //view batch history

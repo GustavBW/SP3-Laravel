@@ -10,7 +10,7 @@ class Beer extends Model
     use HasFactory;
 
     protected $table = 'beers';
-    protected $fillable = ['name', 'production_speed', 'recipe'];
+    protected $fillable = ['name', 'production_speed'];
 
     public function productionspeed()
     {

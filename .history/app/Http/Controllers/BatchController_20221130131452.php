@@ -42,8 +42,6 @@ class BatchController extends Controller
             'size' => $request->size,
             'user_id' => $request->user_id
         ]);
-        $batch->save();
-        return redirect('batch');
         
     }
 
@@ -56,8 +54,7 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        $batch = Batch::find($id);
-        return view('batches.show', compact('batch'));
+        
     }
 
     /**
@@ -87,7 +84,6 @@ class BatchController extends Controller
             'size' => $request->size,
             'user_id' => $request->user_id
         ]);
-        return redirect('batch');
     }
 
     /**
@@ -100,7 +96,7 @@ class BatchController extends Controller
     {
         $batch = Batch::find($id);
         $batch->destroy();
-        return redirect('batch');
+        return redirect('index');
     }
 
     /**
@@ -130,15 +126,7 @@ class BatchController extends Controller
      */
     public function execute($id)
     {
-        $batch = Batch::find($id);
-        $queuedBatch = new QueuedBatch([
-            'beer_id' => $batch->beer_id,
-            'production_speed' => $batch->production_speed,
-            'size' => $batch->size,
-            'user_id' => $batch->user_id
-        ]);
-        $queuedBatch->save();
-        return redirect('batches.queue')->with('queuedBatches', QueuedBatch::all());
+
     }
 
 

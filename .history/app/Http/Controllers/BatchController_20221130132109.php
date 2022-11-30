@@ -57,7 +57,7 @@ class BatchController extends Controller
     public function show($id)
     {
         $batch = Batch::find($id);
-        return view('batches.show', compact('batch'));
+
     }
 
     /**
@@ -138,7 +138,7 @@ class BatchController extends Controller
             'user_id' => $batch->user_id
         ]);
         $queuedBatch->save();
-        return redirect('batches.queue')->with('queuedBatches', QueuedBatch::all());
+        return redirect('batch');
     }
 
 
