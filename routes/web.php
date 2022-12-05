@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\views;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +19,7 @@ use Illuminate\Support\Facades\Route;
 |   will ignore them. So place the routes in order of specificity (method and path).
 */
 
-Route::get('/', function () {
-    return view('/batches/create');
-});
-
+Route::redirect('/', "/login");
 Route::resource('users', 'UserController');
 Route::resource('batches', 'BatchController');
 
@@ -67,3 +65,13 @@ Route::delete('/users/{id}',[UserController::class, 'destroy'])->name('users.des
 //updates the information on user id {id} to equal given request body json data
 Route::post('/users/{id}',[UserController::class, 'update'])->name('users.update');
 
+
+//-------------------------------------views
+Route::get("/login",            [views::class, 'getLogin']          )->name("login");
+Route::get("/home",             [views::class, 'getHome']           )->name("home");
+Route::get("/preferences",      [views::class, 'getPreferences']    )->name("preference");
+Route::get("/admin",            [views::class, 'adminDash']         )->name("admin");
+Route::get("/admin/userList",   [views::class, 'getUserList']       )->name("userList");
+Route::get("/admin/user",       [views::class, 'getCreateUser']     )->name("newUser");
+Route::POST("/admin/user",      [views::class, 'postUser']          );
+Route::post("/admin/userList",  [views::class, 'post']              );

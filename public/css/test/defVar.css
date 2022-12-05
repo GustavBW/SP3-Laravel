@@ -1,0 +1,28 @@
+:root{
+    --navHeight: 4vh;
+    --contentHeight: calc(100vh - var(--navHeight));
+
+    --main: #f5fefd;
+    --secondary: #0A0102;
+    --third: #2E3033;
+
+    --radius: 1vh;
+    --radius2: calc(var(--radius)/3);
+
+    --hardShadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    --softShadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+    --defBorder: var(--secondary) 0.1vh solid;
+
+    --defTransition: 0.2s;
+
+    --defFontWeight: 800;
+}
+
+*{
+    margin: 0;
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+}

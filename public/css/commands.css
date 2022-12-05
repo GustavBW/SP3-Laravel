@@ -1,0 +1,27 @@
+#commands{
+    display: grid;
+    justify-content: center;
+}
+
+.commandButton{
+    font-family: Alexandria;
+    border: var(--defBorder);
+    padding: 0.2vh;
+    border-radius: 0.2vh;
+    background-color: transparent;
+    color: var(--secondary);
+    transition: 0.2s;
+}
+
+.commandButton:hover{
+    transition: 0.2s;
+    border-radius: 0.5vh;
+    background-color: var(--secondary);
+    color: var(--main);
+    cursor: pointer;
+}
+
+#extracommands{
+    padding: 1vh;
+    opacity: 0;
+}
