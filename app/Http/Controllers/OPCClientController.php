@@ -44,6 +44,7 @@ class OPCClientController extends BaseController
     }
 
     /**
+     * Will execute the batch by given id.
      * @param $id
      * @return int
      */
