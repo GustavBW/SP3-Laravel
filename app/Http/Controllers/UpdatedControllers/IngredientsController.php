@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Ingredients;
 use App\Http\Controllers\OPCClientController;
 
 class IngredientsController extends Controller
 {
-    function ingredientsFill()
+    public function ingredientsFill()
     {
         // Create an instance of the OPCClientController class
         $opcClient = new OPCClientController();

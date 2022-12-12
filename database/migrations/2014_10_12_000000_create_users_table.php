@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('PIN');
             $table->string('password');
-            $table->string('preferences');
             $table->rememberToken();
             $table->timestamps();
         });
