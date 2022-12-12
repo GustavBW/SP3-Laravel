@@ -39,6 +39,18 @@ class OPCClientController extends BaseController
         return $response;
     }
 
+    public function readNode($nodeName)
+    {
+        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
+        ['nodeNames'=>$nodeName]);
+    }
+
+    public function writeToNode($nodeName, $value)
+    {
+        return Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write",
+        ['nodeName' => $nodeName, 'value' => $value]);
+    }
+
     /**
      * Returns an array containing the levels of each resource,
      * in order:
@@ -51,7 +63,7 @@ class OPCClientController extends BaseController
 
     public function getRessource(String $name)
     {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory/".$name);
+        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/ressource/".$name);
     }
 
     /**
