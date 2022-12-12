@@ -100,7 +100,6 @@ class DatabaseSeeder extends Seeder
             'yeast' => '0',
             'wheat' => '5'
         ]);
-        
         $penis = new IngredientsController();
         $penis->ingredientsFill();
 

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Batch;
-use App\Models\Beer;
-use App\Models\FinishedBatch;
 
 class BatchController extends Controller
 {
@@ -110,11 +107,11 @@ class BatchController extends Controller
      * Returns a view showing all queued batches
      * @return View
      */
-    /**public function queue()
+    public function queue()
     {
         $queuedBatches = QueuedBatch::all();
         return view('batches.queue')->with('queuedBatches', $queuedBatches);
-    }*/
+    }
 
     /**
      * Returns a view showing all finished batches and their results
@@ -122,7 +119,7 @@ class BatchController extends Controller
      */
     public function history()
     {
-        $batchResults = FinishedBatch::all();
+        $batchResults = FinishedBatches::all();
         return view('batches.history')->with('batchResults', $batchResults);
     }
 
@@ -133,12 +130,12 @@ class BatchController extends Controller
      */
     public function execute($id)
     {
-        /**$batch = Batch::find($id);
+        $batch = Batch::find($id);
         $queuedBatch = new QueuedBatch([
             'batch_id' => $batch->id
         ]);
         $queuedBatch->save();
-        return redirect('batches.queue')->with('queuedBatches', QueuedBatch::all());*/
+        return redirect('batches.queue')->with('queuedBatches', QueuedBatch::all());
     }
 
 
