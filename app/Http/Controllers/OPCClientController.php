@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Http;
 
 /**
  * Controller using JS PHP interop to communicate with the opcClient module.
@@ -14,33 +15,40 @@ use Illuminate\Routing\Controller as BaseController;
 class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    static $OpcApiIp = "10.126.71.25";
+    static $OpcApiPort = "4242";
 
     /**
      * Initializes client to connect to given ip.
      * Returns connection status code.
      */
-    public function initialize($ip)
+    public function initialize($ip, $port)
     {
-        return 200;
+        $response = Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize",
+        ['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]);
+        return $response;
     }
 
     /**
      * Gets the current machine status.
-     * @return int
+     * @return httpResponse
      */
-    public function getMachineStatus(): int
+    public function getMachineStatus()
     {
-        return 69;
+        $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client");
+        return $response;
     }
 
     /**
      * Returns an array containing the levels of each resource,
      * in order:
-     * @return int[]
+     * @return
      */
     public function getInventoryStatus()
     {
-        return [0,1,2,3,4];
+        $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
+        ['nodeNames' => 'InventoryIsFilling_Barley_Hops_Malt_Wheat_Yeast']);
+        return $response;
     }
 
     /**
