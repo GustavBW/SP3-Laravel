@@ -46,22 +46,26 @@ class OPCClientController extends BaseController
      */
     public function getInventoryStatus()
     {
-        $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
-        ['nodeNames' => 'InventoryIsFilling_Barley_Hops_Malt_Wheat_Yeast']);
-        return $response;
+        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory");
+    }
+
+    public function getRessource(String $name)
+    {
+        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory/".$name);
     }
 
     /**
      * Will execute the batch by given id.
      * @param $id
-     * @return int
+     * @return HttpResponse
      */
     public function executeBatch($id)
     {
         $batch = Batch::find($id);
 
         if($batch != null){
-            return 200;
+            return Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute",
+            ['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]);
         }
 
         return 404;
