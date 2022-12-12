@@ -1,9 +1,0 @@
-#serverStatus
-{
-    font-family: Alexandria;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    border-bottom: var(--defBorder);
-    padding: 1vh;
-}
