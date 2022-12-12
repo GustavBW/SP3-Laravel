@@ -7,6 +7,7 @@ use App\Http\Controllers\OPCClientController;
 
 class IngredientsController extends Controller
 {
+    //Might need a Request object?
     public function ingredientsFill()
     {
         // Create an instance of the OPCClientController class
@@ -19,6 +20,7 @@ class IngredientsController extends Controller
         $responseData = json_decode($response);
 
         // Create an Ingredients object and initialize its properties using the values from the response data
+        //Debug. Ensure proper naming of JSON values!
         $ingredients = new Ingredients([
             'barley' => $responseData->barley,
             'hops' => $responseData->hops,
@@ -31,11 +33,11 @@ class IngredientsController extends Controller
         return $ingredients;
     }
 
-    function ingredientsUpdate(){
-
+    public function ingredientsUpdate() {
+        //TODO: Implement this function.
     }
 }
 
-//to get individuel values from the ingredients object use ->
+//to get individual values from the 'ingredients' object use ->
 // $ingredients->barley or $ingredients->hops   etc.
 

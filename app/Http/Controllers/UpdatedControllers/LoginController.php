@@ -9,6 +9,7 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
+        // validate request
         $request->validate([
             'Uname' => 'required|string',
             'Pword' => 'required|string',
