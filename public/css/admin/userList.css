@@ -1,0 +1,121 @@
+.header{
+    margin-bottom: 1vh;
+}
+
+th{
+    width: 10vh;
+}
+
+tr, td{
+
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.edit{
+    cursor: pointer;
+}
+
+.edit:hover{
+    background-color: var(--secondary);
+    color: var(--main);
+}
+
+.editU{
+    position: fixed;
+    opacity: 0;
+    display: grid;
+    background-color: var(--main);
+    box-shadow: var(--softShadow);
+    width: 7vh;
+    padding: 1vh;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 14/16;
+    border-radius: 1vh;
+}
+
+.editB{
+    border-radius: 1vh;
+    cursor: pointer;
+    transition: var(--defTransition);
+    padding: 0.2vh;
+}
+
+.editB:hover{
+    background-color: var(--secondary);
+    color: var(--main);
+    transition: var(--defTransition);
+}
+
+.delete{
+    display: grid;
+    background-color: var(--main);
+    justify-content: center;
+    align-items: center;
+    padding: 1vh;
+    border-radius: 1vh;
+    box-shadow: var(--softShadow);
+    width: 22vh;
+    height: 10vh;
+}
+
+.delBut{
+    border: Var(--defBorder);
+    border-color: transparent;
+    border-radius: 1vh;
+    padding: 1vh;
+    background-color: transparent;
+    cursor: pointer;
+    width: 5vh;
+    transition: 0.2s;
+}
+
+.delBut:hover{
+    border: Var(--defBorder);
+    box-shadow: var(--softShadow);
+    transition: 0.2s;
+}
+
+.deleteOuter{
+    opacity: 0;
+    z-index: -100;
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - var(--navHeight));
+    top: var(--navHeight);
+    left: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main);
+}
+
+#createUser{
+    width: 25vh;
+}
+
+.ButtonSelect{
+    border-radius: 0.2vh;
+    border: none;
+    box-shadow: var(--softShadow);
+    transition: 0.2s;
+    color: var(--secondary);
+    background-color: var(--main);
+}
+
+.ButtonSelect:hover{
+    transition: 0.2s;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: var(--secondary);
+    color: var(--main);
+}
+
+.BSelected{
+    background-color: var(--secondary);
+    color: var(--main);
+}
+
+.pageButtons{
+    padding: 1vh;
+}

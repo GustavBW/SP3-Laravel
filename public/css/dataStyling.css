@@ -1,0 +1,62 @@
+#currentData{
+    width: 100%;
+    height: 25vh;
+    border-bottom: 0.1vh solid var(--secondary);
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-content: center;
+    column-gap: 6vw;
+
+
+}
+
+.dataItem{
+    text-align: center;
+    width: 35vh;
+    height: 20vh;
+    background-color: var(--main);
+    border-radius: 1vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+
+    grid-template-rows: auto auto auto auto;
+}
+
+img{
+    width: 2vh;
+    height: 2vh;
+}
+
+.textFormat{
+    width: 215px;
+    text-align: left;
+}
+
+.chart {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(5%) saturate(877%) hue-rotate(174deg) brightness(88%) contrast(92%);
+    -webkit-filter: brightness(0) saturate(100%) invert(78%) sepia(5%) saturate(877%) hue-rotate(174deg) brightness(88%) contrast(92%);
+    cursor: pointer;
+}
+
+/* Machine Data */
+
+.machineDataItem, .batchInfo{
+    display: grid;
+    justify-content: left;
+    align-content: space-evenly;
+    grid-gap: 1vh;
+    grid-template-columns: auto auto auto;
+    border-radius: 1vh;
+    padding: 10px;
+    transition: 0.2s;
+    border: var(--defBorder);
+    border-color: transparent;
+}
+
+.machineDataItem:hover, .batchInfo:hover{
+    border: var(--defBorder);
+    transition: 0.2s;
+}
