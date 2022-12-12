@@ -99,4 +99,30 @@ class UserController extends Controller
         $user->delete();
         return redirect('user');
     }
+
+
+            /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function verifyPin(Request $request,$id)
+    {
+        //
+    }
+
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $id
+     * @param  String  $password
+     * @return \Illuminate\Http\Response
+     */
+    public function verifyUser(Request $request  ,$id, $password)
+    {
+        //
+    }
 }
