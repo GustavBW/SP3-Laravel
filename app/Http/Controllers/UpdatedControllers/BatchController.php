@@ -42,32 +42,6 @@ class BatchController extends Controller
         $batch = Batch::findOrFail($id);
         return view('batches.show', compact('batch'));
     }
-   
-    //Edit specific batch
-    public function edit($id)
-    {
-        $batch = Batch::firstOrFail($id);
-        return view('batches.edit')->with('batch', $batch);
-    }
-    
-    //Update specific batch
-    public function update(Request $request, $id)
-    {
-        Batch::where('id', $id)->update([
-            'beer_id' => $request->beer_id,
-            'production_speed' => $request->production_speed,
-            'size' => $request->size,
-            'user_id' => $request->user_id
-        ]);
-        return redirect('batch');
-    }
-
-    //Delete specific batch
-    public function destroy($id)
-    {
-        Batch::where('id', $id)->delete();
-        return redirect('batch');
-    }
 
     //Not sure if implemented correctly
     public function history()
