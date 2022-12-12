@@ -31,6 +31,10 @@ class IngredientsController extends Controller
 
         return $ingredients;
     }
+
+    function ingredientsUpdate(){
+
+    }
 }
 
 //to get individuel values from the ingredients object use ->

@@ -59,51 +59,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('recipes')->insert([
-            'barley' => '4',
-            'hops' => '2',
-            'malt' => '1',
-            'yeast' => '4',
-            'wheat' => '1'
-        ]);
-        DB::table('recipes')->insert([
-            'barley' => '1',
-            'hops' => '4',
-            'malt' => '1',
-            'yeast' => '3',
-            'wheat' => '6'
-        ]);
-        DB::table('recipes')->insert([
-            'barley' => '4',
-            'hops' => '1',
-            'malt' => '5',
-            'yeast' => '1',
-            'wheat' => '4'
-        ]);
-        DB::table('recipes')->insert([
-            'barley' => '3',
-            'hops' => '4',
-            'malt' => '6',
-            'yeast' => '2',
-            'wheat' => '1'
-        ]);
-        DB::table('recipes')->insert([
-            'barley' => '4',
-            'hops' => '6',
-            'malt' => '2',
-            'yeast' => '8',
-            'wheat' => '2'
-        ]);
-        DB::table('recipes')->insert([
-            'barley' => '1',
-            'hops' => '1',
-            'malt' => '4',
-            'yeast' => '0',
-            'wheat' => '5'
-        ]);
-        
-        $penis = new IngredientsController();
-        $penis->ingredientsFill();
 
+        ]);
 
     }
 }
