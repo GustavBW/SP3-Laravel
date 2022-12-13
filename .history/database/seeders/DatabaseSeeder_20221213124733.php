@@ -52,6 +52,9 @@ class DatabaseSeeder extends Seeder
             'max_speed' => '125',
             'optimal_production_speed' => '6'
         ]);
+        //$penis = new IngredientsController();
+        //$penis->ingredientsFill();
+
 
     }
 }

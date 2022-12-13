@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
         DB::table('beers')->insert([
             'type' => 'Wheat',
             'max_speed' => '300',
-            'optimal_production_speed' => '2'
+            'optimal_production_speed' => '2',
+            2'
         ]);
         DB::table('beers')->insert([
             'type' => 'IPA',
@@ -46,12 +47,16 @@ class DatabaseSeeder extends Seeder
             'type' => 'Ale',
             'max_speed' => '100',
             'optimal_production_speed' => '5',
+            5'
         ]);
         DB::table('beers')->insert([
             'type' => 'Alcohol Free',
             'max_speed' => '125',
             'optimal_production_speed' => '6'
         ]);
+        //$penis = new IngredientsController();
+        //$penis->ingredientsFill();
+
 
     }
 }
