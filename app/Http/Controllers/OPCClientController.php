@@ -10,19 +10,27 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Http;
 
 /**
- * Controller using JS PHP interop to communicate with the opcClient module.
+ * A controller used to interface between a JAVA api using the MILO library to communicate with the server.
  */
 class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    static $OpcApiIp = "10.126.71.25";
+    static $OpcApiIp = "10.126.71.25"; //replace with ip of API
     static $OpcApiPort = "4242";
 
     /**
-     * Initializes client to connect to given ip.
-     * Returns connection status code.
+     * Initializes client to connect to the given ip.
+     * Returns connection status code as a json string with fields
+     * "status" (http response status) and "error" (string).
+     *
+     * Return json:
+     *
+     * {
+     *      "status": <number>,
+     *      "error": <message>
+     * }
      */
-    public function initialize($ip, $port)
+    public static function initialize($ip, $port)
     {
         $response = Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize",
         ['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]);
@@ -30,48 +38,114 @@ class OPCClientController extends BaseController
     }
 
     /**
-     * Gets the current machine status.
-     * @return httpResponse
+     * Gets the current machine status as a json string with fields:
+     * "machineStatus" (int), "translation" (string), "errorMessage" (string), "vibrations" (uaNode), "faulty" (boolean).
+     *
+     * Return json:
+     *
+     * {
+     *      "machineStatus": \<number (value of node CurrentState)>,
+     *      "translation": <string (what this status means)>,
+     *      "errorMessage": <string (any error encountered)>,
+     *      "vibrations": <uaNode (JSON-OBJECT), fields: "value", "serverTime", ...>,
+     *      "faulty": <boolean (true if there's a fundamental error, say there's no connection)>
+     * }
      */
-    public function getMachineStatus()
+    public static function getMachineStatus()
     {
         $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client");
         return $response;
     }
 
-    public function readNode($nodeName)
+    /**
+     * Expects a list of names as seen in the Enum "KnownNodes" which can be retrieved from anywhere using the
+     * "getResource($name)" method below.
+     * If an empty string is given or no string at all, it will return all available nodes.
+     *
+     * Returns a touple of a Map (key: NodeName, Value: uaNode) and a message containing any errors encountered.
+     *
+     * Return json:
+     *
+     * {
+     *      "first": {
+     *                  "nodeName_1": <uaNode (JSON-OBJECT), fields: "value", "serverTime", ...>,
+     *                  "nodeName_2": <uaNode (JSON-OBJECT), fields: "value", "serverTime", ...>,
+     *                  ..
+     *                  "nodeName_n": <uaNode (JSON-OBJECT), fields: "value", "serverTime", ...>
+     *              },
+     *      "second": <message>
+     * }
+     *
+     * @param $nodeNames, an underscore separated list of nodeNames.
+     */
+    public static function readNodes($nodeNames)
     {
         return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
-        ['nodeNames'=>$nodeName]);
+        ['nodeNames'=>$nodeNames]);
     }
 
-    public function writeToNode($nodeName, $value)
+    /**
+     * Writes a value to a node.
+     * @param $nodeName String - name of node as seen in KnownNodes accessible from anywhere using the
+     * "getResource($name)" method.
+     * @param $value - any. An error will be returned if the node can't be written to OR the type of $value is interpreted incorrectly.
+     *
+     * Return json:
+     *
+     * {
+     *      "status": <http status code>,
+     *      "error": <message>
+     * }
+     *
+     */
+    public static function writeToNode(String $nodeName, $value)
     {
         return Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write",
         ['nodeName' => $nodeName, 'value' => $value]);
     }
 
     /**
-     * Returns an array containing the levels of each resource,
-     * in order:
-     * @return
+     * Exactly the same as "readNodes" except it reads the values of specifik nodes, these being:
+     * "InventoryIsFilling", "Barley", "Hops", "Malt", "Wheat" and "Yeast" in order.
+     * It does this through the preprepared api call "/client/inventory",
      */
-    public function getInventoryStatus()
+    public static function getInventoryStatus()
     {
         return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory");
     }
 
-    public function getRessource(String $name)
+    /**
+     * Returns the information available on a given resource as touple with fields "first" and "second".
+     * "first" being the name of the resource, "second" an array of strings.
+     * @param String $name
+     *
+     * Return json:
+     *
+     * {
+     *      "first": <name of resource (string)>
+     *      "second": <fields in resource (JSON-ARRAY)>
+     * }
+     */
+    public static function getResource(String $name)
     {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/ressource/".$name);
+        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/resource/".$name);
     }
 
     /**
      * Will execute the batch by given id.
      * @param $id
-     * @return HttpResponse
+     *
+     * Return json: MachineStatus
+     *
+     * {
+     *      "machineStatus": \<number (value of node CurrentState)>,
+     *      "translation": <string (what this status means)>,
+     *      "errorMessage": <string (any error encountered)>,
+     *      "vibrations": <uaNode (JSON-OBJECT), fields: "value", "serverTime", ...>,
+     *      "faulty": <boolean (true if there's a fundamental error, say there's no connection)>
+     * }
      */
-    public function executeBatch($id)
+    public static function executeBatch($id)
     {
         $batch = Batch::find($id);
 
@@ -81,6 +155,15 @@ class OPCClientController extends BaseController
         }
 
         return 404;
+    }
+
+    /**
+     * Retuns a comforting message confirming that the API server is alive and well. If that is the case.
+     * Also known as a heartbeat server-stability confirmation.
+     */
+    public static function sanityCheck()
+    {
+        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/sanity");
     }
 
 
