@@ -5,7 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\IngredientsController;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -51,6 +52,15 @@ class DatabaseSeeder extends Seeder
             'type' => 'Alcohol Free',
             'max_speed' => '125',
             'optimal_production_speed' => '6'
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Nick Er Sej',
+            'password' => Hash::make('password')
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Alex',
+            'password' => Hash::make('sha256')
         ]);
 
     }
