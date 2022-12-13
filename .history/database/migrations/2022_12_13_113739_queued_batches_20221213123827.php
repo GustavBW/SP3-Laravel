@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('production_speeds', function (Blueprint $table) {
+        Schema::create('finished_batches', function (Blueprint $table) {
             $table->id();
-            $table->integer('bpm');
+            $table->bigInteger('batch_id')->references('id')->on('batches');
+            $table->integer('successful_products');
+            $table->integer('failed_products');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('production_speeds');
+        Schema::drop('queued_batches');
     }
 };

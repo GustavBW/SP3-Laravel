@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('finished_batches', function (Blueprint $table) {
             $table->id();
-            $table->Integer('barley');
-            $table->Integer('hops');
-            $table->Integer('malt');
-            $table->Integer('yeast');
-            $table->Integer('wheat');
+            $table->bigInteger('batch_id')->references('id')->on('batches');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('queued_batches');
     }
 };
