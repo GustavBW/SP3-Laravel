@@ -32,8 +32,10 @@ class OPCClientController extends BaseController
      */
     public static function initialize($ip, $port)
     {
-        $response = Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize",
-        ['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]);
+        $response = Http::dump()
+        ->withBody(json_encode(['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]), 'application/json')
+        ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
+        ->json_decode();
         return $response;
     }
 
@@ -53,7 +55,8 @@ class OPCClientController extends BaseController
      */
     public static function getMachineStatus()
     {
-        $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client");
+        $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
+        ->json_decode();
         return $response;
     }
 
@@ -78,7 +81,7 @@ class OPCClientController extends BaseController
      *
      * @param $nodeNames, an underscore separated list of nodeNames.
      */
-    public static function readNodes($nodeNames)
+    public static function readNodes(String[] $nodeNames)
     {
         return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
         ['nodeNames'=>$nodeNames]);
@@ -100,8 +103,10 @@ class OPCClientController extends BaseController
      */
     public static function writeToNode(String $nodeName, $value)
     {
-        return Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write",
-        ['nodeName' => $nodeName, 'value' => $value]);
+        return Http::dump()
+        ->withBody(json_encode(['nodeName' => $nodeName, 'value' => $value]), 'application/json')
+        ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write")
+        ->json_decode();
     }
 
     /**
@@ -150,8 +155,10 @@ class OPCClientController extends BaseController
         $batch = Batch::find($id);
 
         if($batch != null){
-            return Http::post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute",
-            ['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]);
+            return Http::dump()
+            ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed], 'application/json'))
+            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
+            ->json_decode();
         }
 
         return 404;
