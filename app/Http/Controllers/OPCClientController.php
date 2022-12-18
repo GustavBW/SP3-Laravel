@@ -81,7 +81,7 @@ class OPCClientController extends BaseController
      *
      * @param $nodeNames, an underscore separated list of nodeNames.
      */
-    public static function readNodes(String[] $nodeNames)
+    public static function readNodes(String $nodeNames)
     {
         return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
         ['nodeNames'=>$nodeNames]);

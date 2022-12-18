@@ -1,0 +1,21 @@
+.items{
+    justify-content: center;
+    display: flex;
+    text-align: center;
+}
+
+.item{
+    padding: 0.2vh;
+    border: var(--mainColor) 0.2vh solid;
+    margin: 0.2vh;
+    border-radius: 1vh;
+}
+
+a{
+    color: #2E3033;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #6E644E;
+}

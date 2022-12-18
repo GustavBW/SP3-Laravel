@@ -1,0 +1,49 @@
+.chart{
+    width: 20vh;
+    text-align: center;
+}
+
+.batchInfo{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    column-gap: 5vh;
+}
+
+.item{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+    width: 25vh;
+}
+
+.info{
+    padding: 1vh;
+    border-radius: 1vh;
+    width: 20vh;
+    height: 20vh;
+}
+
+.info > div{
+    padding: 1vh;
+    border-radius: 1vh;
+}
+
+.info > div > h3{
+    padding-bottom: 0.3vh;
+    padding-left: 1vh;
+}
+
+.info > div > h2{
+    padding-bottom: 1vh;
+}
+
+a{
+    color: #2E3033;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #6E644E;
+}

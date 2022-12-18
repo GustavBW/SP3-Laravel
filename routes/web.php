@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\views;
 use Illuminate\Support\Facades\Route;
 
@@ -19,32 +20,51 @@ use Illuminate\Support\Facades\Route;
 |   will ignore them. So place the routes in order of specificity (method and path).
 */
 
-Route::redirect('/', "/login");
-Route::resource('users', 'UserController');
-Route::resource('batches', 'BatchController');
+//Route::resource('users', 'UserController');
+//Route::resource('batches', 'BatchController');
+
+//-------------------------------------views
+Route::get('/login', [LoginController::class, 'loginG'])->name("login");
+Route::post('/login', [LoginController::class, 'login'])->name("loginP");
+
+Route::get('/', [views::class, 'index'])->name("home");
+Route::get('/brew', [views::class, 'brew'])->name("brew");
+Route::get('/admin', [views::class, 'admin'])->name("admin");
+Route::get('/batches', [views::class, 'batches'])->name("batches");
+Route::get('/batch/{id}', [views::class, 'batch'])->name("batch");
+
+Route::get('/api/getInventory', [views::class, 'getDash'])->name("getDash");
+Route::get('/api/getAdmin', [views::class, 'getAdmin'])->name("getAdmin");
+Route::get('/api/getServerS', [views::class, 'getServerS'])->name("getServerS");
+Route::post('/api/write/{id}', [views::class, 'post'])->name("post");
+
+Route::post('/api/write/set_command/{command}', [views::class, 'sendCommand'])->name("sendCommand");
+Route::post('/api/write/brew', [views::class, 'brewP'])->name("sendCommand");
+
+//-------------------------------------views
 
 //-------------------------------------BATCH API
 //PIN LOCKED
 //get batch information edit view
-Route::get('/batch/{id}/edit',[BatchController::class,'edit'])->name('batch.edit');
+//Route::get('/batch/{id}/edit',[BatchController::class,'edit'])->name('batch.edit');
 //adds batch id {id} to active execution queue
-Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('batch.execute');
+//Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('batch.execute');
 //remove batch
-Route::delete('/batch/{id}',[BatchController::class,'destroy'])->name('batch.delete');
+//Route::delete('/batch/{id}',[BatchController::class,'destroy'])->name('batch.delete');
 //update information on specified batch to equal given request body json data
-Route::put('/batch/{id}',[BatchController::class,'update'])->name('batch.update');
+//Route::put('/batch/{id}',[BatchController::class,'update'])->name('batch.update');
 //view batch queue
-Route::get('/batch/queue',[BatchController::class,'viewQueue'])->name('batch.queue');
+//Route::get('/batch/queue',[BatchController::class,'viewQueue'])->name('batch.queue');
 //store new batch
-Route::post('/batch',[BatchController::class,'create'])->name('batch.create');
+//Route::post('/batch',[BatchController::class,'create'])->name('batch.create');
 
 //NOT PIN LOCKED
 //view batch history
-Route::get('/batch/history',[BatchController::class,'viewHistory'])->name('batch.history');
+//Route::get('/batch/history',[BatchController::class,'viewHistory'])->name('batch.history');
 //get page view for single batch
-Route::get('/batch/{id}',[BatchController::class,'show'])->name('batch');
+//Route::get('/batch/{id}',[BatchController::class,'show'])->name('batch');
 //get page view for all batches
-Route::get('/batch',[BatchController::class,'index'])->name('batch');
+//Route::get('/batch',[BatchController::class,'index'])->name('batch');
 
 
 //-------------------------------------USER API
@@ -64,14 +84,3 @@ Route::put('/users/store',[UserController::class,'store'])->name('users.store');
 Route::delete('/users/{id}',[UserController::class, 'destroy'])->name('users.destroy');
 //updates the information on user id {id} to equal given request body json data
 Route::post('/users/{id}',[UserController::class, 'update'])->name('users.update');
-
-
-//-------------------------------------views
-Route::get("/login",            [views::class, 'getLogin']          )->name("login");
-Route::get("/home",             [views::class, 'getHome']           )->name("home");
-Route::get("/preferences",      [views::class, 'getPreferences']    )->name("preference");
-Route::get("/admin",            [views::class, 'adminDash']         )->name("admin");
-Route::get("/admin/userList",   [views::class, 'getUserList']       )->name("userList");
-Route::get("/admin/user",       [views::class, 'getCreateUser']     )->name("newUser");
-Route::POST("/admin/user",      [views::class, 'postUser']          );
-Route::post("/admin/userList",  [views::class, 'post']              );

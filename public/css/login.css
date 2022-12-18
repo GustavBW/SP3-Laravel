@@ -1,0 +1,40 @@
+#content{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+form{
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    height: 20vh;
+    border: var(--mainColor) 0.2vh solid;
+    padding: 1vh;
+    border-radius: 1vh;
+}
+
+form > button {
+    background-color: transparent;
+    border: var(--mainColor) 0.2vh solid;
+    border-radius: 0.2vh;
+    height: 2vh;
+}
+
+form > section > input {
+    border-radius: 0.5vh;
+    padding: 0.5vh;
+}
+
+form > button:hover{
+    cursor: pointer;
+    background-color: var(--mainColor);
+    color: white;
+}
+
+nav{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

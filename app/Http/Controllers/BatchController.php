@@ -16,14 +16,14 @@ class BatchController extends Controller
         $batches = Batch::all();
         return view('batches.index', compact('batches'));
     }
-    
+
     //Create batch with specific beer id
     public function create()
     {
         $beers = Beer::pluck('id');
         return view('batches.create')->with('beer_id', $beers);
     }
- 
+
     //Store created batch
     public function store(Request $request)
     {
@@ -35,7 +35,7 @@ class BatchController extends Controller
         ]);
         return redirect('batch');
     }
-  
+
     //Show specific batch
     public function show($id)
     {
