@@ -25,7 +25,7 @@
     display: flex;
     list-style: none;
     margin: 0;
-    padding-left: 15vw;
+    padding-left: 10vw;
   }
 
   nav li {
@@ -66,4 +66,20 @@ progress::-webkit-progress-value {
 progress::-webkit-progress-bar {
     border-radius: 999px;
     background: #2E3033;
+}
+
+button, .fakeBut{
+    color: var(--mainColor);
+    text-decoration: none;
+    background-color: transparent;
+    font-weight: 800;
+    border: var(--mainColor) 0.2vh solid;
+    padding: 0.2vh;
+    transition: 0.2s;
+}
+
+button:hover, .fakeBut:hover{
+    transition: 0.2s;
+    background-color: var(--mainColor);
+    color: white;
 }

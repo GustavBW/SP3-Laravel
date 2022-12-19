@@ -11,7 +11,10 @@ class UserController extends Controller
     //Create user
     public function create()
     {
-        return view('users.create');
+        return view('create')->
+        with('selected', 'admin')->
+        with('buttons', false)->
+        with('liveData', false);
     }
 
     //Store created user

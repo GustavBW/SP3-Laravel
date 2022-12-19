@@ -156,7 +156,7 @@
                 "speed": document.getElementById("speed").value,
                 "size": document.getElementById("quantity").value
             };
-            fetch('/api/write/brew', {
+            fetch('{{route("brewP")}}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
@@ -17,10 +18,10 @@
             </div>
             <div style="text-align: right">
                 <ul >
-                    <li><a href="{{route('home')}}" onclick="clearInterval(y); x = 0" id="dashboard">Dashboard</a></li>
-                    <li><a href="{{route('brew')}}" onclick="clearInterval(y); x = 0" id="brew">Brew</a></li>
-                    <li><a href="{{route('admin')}}" onclick="clearInterval(y); x = 0" id="admin">Admin</a></li>
-                    <li><a href="{{route('batches')}}" onclick="clearInterval(y); x = 0" id="batches">Batches</a></li>
+                    <li><a href="{{route('home')}}" id="dashboard">Dashboard</a></li>
+                    <li><a href="{{route('brew')}}" id="brew">Brew</a></li>
+                    <li><a href="{{route('admin')}}" id="admin">Admin</a></li>
+                    <li><a href="{{route('batches')}}" id="batches">Batches</a></li>
                     <li><a href="" onclick="clearInterval(y); x = 0" id="logout">Log out</a></li>
                 </ul>
             </div>
@@ -29,12 +30,12 @@
             @yield("body")
         </div>
         @if($buttons === True)
-            <div style="display:flex; justify-content: center; column-gap: 1vw; padding: 1vh">
-                <button onclick="setCommnad('reset')">Reset</button>
-                <button onclick="setCommnad('start')">Start</button>
-                <button onclick="setCommnad('stop')">Stop</button>
-                <button onclick="setCommnad('abort')">abort</button>
-                <button onclick="setCommnad('clear')">clear</button>
+            <div style="display:flex; justify-content: center; column-gap: 1vw; padding: 1vh" class="buts">
+                <button onclick="setCommnad('reset')" class="buttons">Reset</button>
+                <button onclick="setCommnad('start')" class="buttons">Start</button>
+                <button onclick="setCommnad('stop')" class="buttons">Stop</button>
+                <button onclick="setCommnad('abort')" class="buttons">abort</button>
+                <button onclick="setCommnad('clear')" class="buttons">clear</button>
             </div>
         @endif
         @if($liveData === True)
@@ -45,15 +46,21 @@
         @endif
     </body>
     @yield('script')
+    <script>
+        document.getElementById("{{$selected}}").classList.add("selected");
+    </script>
     @if($liveData === True)
         <script src="{{asset('js/functions.js')}}"></script>
         <script>
-            document.getElementById("{{$selected}}").classList.add("selected");
-            window.onbeforeunload = () => {
-                clearInterval(y)
-            }
+            window.on
             x = 1000
             y = setInterval(async => getLiveData(z), x)
+            window.onunload = function() {
+                clearInterval(y)
+            }
+            window.onbeforeunload  = function() {
+                clearInterval(y)
+            }
         </script>
     @endif
     @if($buttons === True)
@@ -66,4 +73,5 @@
             }
         </script>
     @endif
+    @include('auth')
 </html>

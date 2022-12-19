@@ -34,4 +34,8 @@ class LoginController extends Controller
     function loginG(){
         return view("login");
     }
+
+    function logOut(){
+
+    }
 }
