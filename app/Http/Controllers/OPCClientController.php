@@ -59,6 +59,19 @@ class OPCClientController extends BaseController
         ->json_decode();
         return $response;
     }
+    /**
+     * Sets the machine's current command to $command.
+     * If $autoExecute is true, it will trigger the command change request, executing set command.
+     *
+     * returns a MachineStatus json object. (as seen above)
+     */
+    public static function setMachineCommand(String $command, bool $autoExecute)
+    {
+        return Http::dump()
+            ->withBody(json_encode(['autoExecute' => $autoExecute]), 'application/json')
+            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
+            ->json_decode();
+    }
 
     /**
      * Expects a list of names as seen in the Enum "KnownNodes" which can be retrieved from anywhere using the
