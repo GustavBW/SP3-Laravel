@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 //Route::resource('batches', 'BatchController');
 
 //-------------------------------------views
-Route::get('/login', [LoginController::class, 'loginG'])->name("login");
-Route::get('/logOut', [LoginController::class, 'logOut'])->name("logOut");
-Route::post('/login', [LoginController::class, 'login'])->name("loginP");
+Route::get('/login', [LoginController::class, 'show'])->name("login");
+Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
+Route::post('/doLogin', [LoginController::class, 'login'])->name("doLogin");
 
 Route::get('/', [views::class, 'index'])->name("home");
 Route::get('/brew', [views::class, 'brew'])->name("brew");
@@ -43,7 +43,7 @@ Route::post('/create', [UserController::class, 'store'])->name("createStore");
 
 Route::post('/api/write/{id}', [views::class, 'post'])->name("post");
 Route::post('/api/write/set_command/{command}', [views::class, 'sendCommand'])->name("sendCommand");
-Route::post('/api/write/brew', [views::class, 'brewP'])->name("brewP");
+Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->name("storeAndExecute");
 
 //-------------------------------------views
 

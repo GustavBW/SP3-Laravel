@@ -9,7 +9,7 @@
         @foreach ($batches as $batch)
             <div class="item">
                 <h3>Batch</h3>
-                <a href="/batch/{{ $batch->id }}">id: {{ $batch->id }}</a>
+                <a href="{{route('batch', ['id' => $batch->id])}}">id: {{ $batch->id }}</a>
                 <h3>Type: {{ $options[$batch->beer_id] }}</h3>
             </div>
         @endforeach

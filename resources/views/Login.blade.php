@@ -12,19 +12,20 @@
     </nav>
 
     <div id="content" class="center">
-        <form method="post" id="Login" class="center">
-            <h2 class="h2">LOGIN</h2>
-            <Section class="section">
-                <label for="Uname" id="nameLabel">Name</label>
-                <br>
-                <input type="text" placeholder="Name" name="Uname" id="name" onkeyup="showName()">
-            </Section>
-            <section id="passwordS" class="section">
-                <label for="Pword" id="passwordLabel">Password</label>
-                <br>
-                <input id="Password" type="password" placeholder="Password" name="Pword" onkeyup="showPass()">
-            </section>
-            <button id="LoginB" >Login</button>
+        <h2 class="h2">LOGIN</h2>
+        <form method="post" action="{{ route('doLogin') }}">
+            @csrf
+            <div class="form-group mb-3">
+                <label for="name">Username</label>
+                <input class="form-control" type="text" name="name" id="name">
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <div class="mb-3">
+                <button id="login-submit" class="btn btn-primary" type="submit">Submit</button>
+            </div>
         </form>
     </div>
     <script>

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\UserController::factory()->create([
         //     'name' => 'Test UserController',
         //     'email' => 'test@example.com',
-        // ]);  
+        // ]);
         DB::table('beers')->insert([
             'type' => 'Pilsner',
             'max_speed' => '600',
@@ -56,12 +56,41 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Nick Er Sej',
-            'password' => Hash::make('password')
+            'password' => bcrypt('penis')
         ]);
         DB::table('users')->insert([
             'name' => 'Alex',
-            'password' => Hash::make('sha256')
+            'password' => bcrypt('penis')
         ]);
+        DB::table('batches')->insert([
+            'beer_id' => '1',
+            'size' => '2',
+            'user_id' => '3',
+            'production_speed' => '4',
+            'status' => '1'
+        ]);
+        DB::table('finished_batches')->insert([
+            'batch_id'=>'1',
+            'successful_products'=>'2',
+            'failed_products' => '3'
+        ]);
+
+        DB::table('batches')->insert([
+            'beer_id' => '2',
+            'size' => '10',
+            'user_id' => '10',
+            'production_speed' => '10',
+            'status' => '5'
+        ]);
+
+        DB::table('batches')->insert([
+            'beer_id' => '3',
+            'size' => '20',
+            'user_id' => '20    ',
+            'production_speed' => '20',
+            'status' => '16'
+        ]);
+
 
     }
 }

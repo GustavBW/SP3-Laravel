@@ -4,38 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        // validate request
-        $request->validate([
-            'name' => 'required|string',
-            'Password' => 'required|string',
-        ]);
-
-    // get username and password from request
-      $username = $request->input('name');
-      $password = $request->input('Password');
-
-    // check database for username and password
-      $user = User::where('name', $username)->where('password',$password)->first();
-
-        if ($user) {
-            // if user exists, redirect to home
-            return redirect()->route('home');
-        } else {
-            // if user does not exist, redirect to login page
-            return redirect()->route('login');
+        if (Auth::attempt(
+            ['name' => $request->input("name"), 'password' => $request->input("password")],
+            true
+        )) {
+            Auth::viaRemember();
+            return redirect('/');
+        }else{
+            return redirect()->back()->withErrors([
+                'name' => 'The provided credentials do not match our records.'
+            ]);
         }
     }
 
-    function loginG(){
+    public function show(){
         return view("login");
     }
 
-    function logOut(){
+    public function logout(){
+        Auth::logout();
+
+        return redirect()->route('home');
 
     }
 }

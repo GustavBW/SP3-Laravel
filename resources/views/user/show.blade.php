@@ -1,0 +1,2 @@
+show user
+{{$user->name}}

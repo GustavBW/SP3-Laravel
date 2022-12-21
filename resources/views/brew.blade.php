@@ -18,10 +18,12 @@
         <p id="speed-display">Current speed:</p>
         <input type="number" id="speedC" value="50" onkeyup="changeSpeed()">
         <input type="range" id="speed" min="1" max="600" value="300" oninput="updateSpeed()">
+
         <div style="display: flex;">
             <input type="checkbox" id="checkbox" name="checkbox" on>
             <label for="checkbox">Run at optimal speed</label>
         </div>
+
         <p id="timerTakes">Est time: </p>
         <button onmouseup="prompt()">Start production</button>
     </div>
@@ -156,7 +158,7 @@
                 "speed": document.getElementById("speed").value,
                 "size": document.getElementById("quantity").value
             };
-            fetch('{{route("brewP")}}', {
+            fetch('{{route("storeAndExecute")}}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

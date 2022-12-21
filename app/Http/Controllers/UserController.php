@@ -11,20 +11,27 @@ class UserController extends Controller
     //Create user
     public function create()
     {
-        return view('create')->
-        with('selected', 'admin')->
-        with('buttons', false)->
-        with('liveData', false);
+        return view('create');
+    }
+
+    public function show($id)
+    {
+        return view('user.show')->with('user', User::find($id));
+    }
+
+    public function edit($id)
+    {
+        return view('user.edit')->with('user',User::find($id));
     }
 
     //Store created user
     public function store(Request $request)
     {
-        User::create([
-            'name' => $request->name,
-            'password' => $request->password,
-        ]);
+        $user = new User();
+        $user->name = $request->input("name");
+        $user->password = bcrypt($request->input("password"));
+        $user->save();
 
-        return redirect('user');
+        return redirect()->route('users', ['id' => $user->id]);
     }
 }

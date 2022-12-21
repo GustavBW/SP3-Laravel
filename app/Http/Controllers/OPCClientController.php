@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Http;
 class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    static $OpcApiIp = "10.126.71.25"; //replace with ip of API
+    static $OpcApiIp = "192.168.0.174"; //replace with ip of API
     static $OpcApiPort = "4242";
 
     /**
@@ -169,7 +169,7 @@ class OPCClientController extends BaseController
 
         if($batch != null){
             return Http::dump()
-            ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed], 'application/json'))
+            ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
             ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
             ->json_decode();
         }

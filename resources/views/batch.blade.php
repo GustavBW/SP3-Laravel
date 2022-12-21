@@ -12,15 +12,16 @@
         <div class="item info">
             <div>
                 <h2>Batch info</h2>
-                <h3>Batch ID: {{$batchId}}</h3>
-                <h3>Type: {{$machineData['type']}}</h3>
-                <h3>Speed: {{$machineData['speed']}}</h3>
-                <h3>Started by: {{$machineData['startedBy']}}</h3>
-                <h3>Batch status: {{$machineData['status']}}</h3>
+                <h3>Batch ID: {{$batch->id}}</h3>
+                <h3>Type: {{$batch->beer_id}}</h3>
+                <h3>Size: {{$batch->size}}</h3>
+                <h3>Speed: {{$batch->production_speed}}</h3>
+                <h3>Started by: {{$batch->user_id}}</h3>
+                <h3>Batch status: {{$batch->status}}</h3>
             </div>
         </div>
         <div class="chart item">
-                <h4>Total Production: {{$machineData['size']}}</h4>
+                <h4>Total Production: {{$batch->size}}</h4>
                 <canvas id="doughnut"></canvas>
                 <canvas id="myChart"></canvas>
         </div>
@@ -34,6 +35,13 @@
 
     <script>
         const doughnutChart = document.getElementById('doughnut');
+        let success = 0;
+        let failures = 0;
+        @if($result != null)
+            success = {{$result->brewed}} ? {{$result->brewed}} : 0;
+            failures = {{$result->failed}} ? {{$result->failed}} : 0;
+        @endif
+
         const doughnutData = {
             labels: [
                 'sucess',
@@ -41,7 +49,7 @@
             ],
             datasets: [{
                 label: 'Produced',
-                data: [{{$machineData['sucess']}},{{$machineData['failed']}}],
+                data: [success,failures],
                 backgroundColor: [
                     '#6E644E',
                     '#2E3033'

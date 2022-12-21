@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Batch;
 use Illuminate\Http\Request;
+use App\Models\FinishedBatch;
 
 class views extends Controller
 {
@@ -12,7 +13,8 @@ class views extends Controller
         return view("index")->
         with('selected', 'dashboard')->
         with('buttons', True)->
-        with('liveData', True);
+        with('liveData', True)->
+        with('serverStatus', OPCClientController::getMachineStatus());
     }
 
     function brew(){
@@ -58,13 +60,20 @@ class views extends Controller
             'size' => 300,
         );
 
+        $batch = Batch::find($id);
+        if($batch == null){
+            abort(404);
+        }
 
         return view("batch")->
         with('selected', 'batches')->
         with('buttons', false)->
         with('liveData', false)->
         with('batchId', $id)->
-        with('machineData', $machineData);
+        with('machineData', $machineData)->
+        with('batch', $batch)->
+        with('result', FinishedBatch::find($id));
+        
     }
 
 
@@ -128,11 +137,6 @@ class views extends Controller
     }
 
     function brewP(request $request){
-        /*
-         * json object
-         * beerType number
-         * speed
-         * size
-         */
+
     }
 }

@@ -4,13 +4,17 @@
 @endsection
 @section("body")
     <div id="content">
-        <form style="row-gap: 1vh; display: grid;" action="" method="post">
+        <form style="row-gap: 1vh; display: grid;" action="{{ route('users.store') }}" method="post">
+            @method("put")
+            @csrf
             <h1>Create User</h1>
             <label for="name">Username</label>
-            <input type="text" id="name">
+            <input type="text" id="name" name="name">
+
             <label for="password">Password</label>
-            <input type="text" id="password">
-            <button onmouseup="">Create User</button>
+            <input type="password" id="password" name="password">
+
+            <button type="submit">Create User</button>
         </form>
     </div>
 @endsection
