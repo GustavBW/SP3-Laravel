@@ -38,7 +38,7 @@ class OPCClientController extends BaseController
                 ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
                 ->json_decode();
         }catch (\Exception $e) {
-            return $e;
+            return json_encode(['status' => $e->getCode(), 'error' => $e->getMessage()]);
         }
     }
 
@@ -59,10 +59,15 @@ class OPCClientController extends BaseController
     public static function getMachineStatus()
     {
         try{
-            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
-            ->json_decode();
+            return json_decode(Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
+            );
         }catch (\Exception $e) {
-            return $e;
+            return json_encode([
+                'machineStatus'=> 20,
+                'translation' => 'invalid state',
+                'errorMessage' => $e->getMessage(),
+                'vibrations' => null,
+                'faulty' => true]);
         }
     }
     /**
@@ -79,7 +84,12 @@ class OPCClientController extends BaseController
                 ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
                 ->json_decode();
         }catch (\Exception $e) {
-            return $e;
+            return json_encode([
+                'machineStatus'=> 20,
+                'translation' => 'invalid state',
+                'errorMessage' => $e->getMessage(),
+                'vibrations' => null,
+                'faulty' => true]);
         }
     }
 
@@ -110,7 +120,7 @@ class OPCClientController extends BaseController
             return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
             ['nodeNames'=>$nodeNames]);
         }catch (\Exception $e) {
-            return $e;
+            return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
     }
 
@@ -137,7 +147,7 @@ class OPCClientController extends BaseController
             ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write")
             ->json_decode();
         }catch (\Exception $e) {
-            return $e;
+            return json_encode(['status' => $e->getCode(), 'error' => $e->getMessage()]);
         }
     }
 
