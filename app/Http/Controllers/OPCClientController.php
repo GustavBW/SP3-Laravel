@@ -104,6 +104,7 @@ class OPCClientController extends BaseController
      * Writes a value to a node.
      * @param $nodeName String - name of node as seen in KnownNodes accessible from anywhere using the
      * "getResource($name)" method.
+     * @param $dataType String - the type of data e.g. int, float, short, long, string or bool
      * @param $value - any. An error will be returned if the node can't be written to OR the type of $value is interpreted incorrectly.
      *
      * Return json:
@@ -114,10 +115,10 @@ class OPCClientController extends BaseController
      * }
      *
      */
-    public static function writeToNode(String $nodeName, $value)
+    public static function writeToNode(String $nodeName, $value, String $dataType)
     {
         return Http::dump()
-        ->withBody(json_encode(['nodeName' => $nodeName, 'value' => $value]), 'application/json')
+        ->withBody(json_encode(['nodeName' => $nodeName, 'value' => $value, 'dataType' => $dataType]), 'application/json')
         ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write")
         ->json_decode();
     }
