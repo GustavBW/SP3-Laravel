@@ -161,7 +161,7 @@ class OPCClientController extends BaseController
         try{
             return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory");
         }catch (\Exception $e) {
-            return $e;
+            return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
     }
 
@@ -182,7 +182,7 @@ class OPCClientController extends BaseController
         try{
             return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/resource/".$name);
         }catch (\Exception $e) {
-            return $e;
+            return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
     }
 
@@ -211,7 +211,12 @@ class OPCClientController extends BaseController
                     ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
                     ->json_decode();
             }catch (\Exception $e) {
-                return $e;
+                return json_encode([
+                    'machineStatus'=> 20,
+                    'translation' => 'invalid state',
+                    'errorMessage' => $e->getMessage(),
+                    'vibrations' => null,
+                    'faulty' => true]);
             }
         }
 
@@ -227,7 +232,7 @@ class OPCClientController extends BaseController
         try{
             return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/sanity");
         }catch (\Exception $e) {
-            return $e;
+            return json_encode(['status' => 500, 'error' => 'Sanity check failed. See: ' . $e->getMessage()]);
         }
     }
 
