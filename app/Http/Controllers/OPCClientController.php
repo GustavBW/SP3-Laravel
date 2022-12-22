@@ -32,11 +32,14 @@ class OPCClientController extends BaseController
      */
     public static function initialize($ip, $port)
     {
-        $response = Http::dump()
-        ->withBody(json_encode(['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]), 'application/json')
-        ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
-        ->json_decode();
-        return $response;
+        try{
+            return Http::dump()
+                ->withBody(json_encode(['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]), 'application/json')
+                ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
+                ->json_decode();
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -55,9 +58,12 @@ class OPCClientController extends BaseController
      */
     public static function getMachineStatus()
     {
-        $response = Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
-        ->json_decode();
-        return $response;
+        try{
+            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
+            ->json_decode();
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
     /**
      * Sets the machine's current command to $command.
@@ -67,10 +73,14 @@ class OPCClientController extends BaseController
      */
     public static function setMachineCommand(String $command, bool $autoExecute)
     {
-        return Http::dump()
-            ->withBody(json_encode(['autoExecute' => $autoExecute]), 'application/json')
-            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
-            ->json_decode();
+        try{
+            return Http::dump()
+                ->withBody(json_encode(['autoExecute' => $autoExecute]), 'application/json')
+                ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
+                ->json_decode();
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -96,8 +106,12 @@ class OPCClientController extends BaseController
      */
     public static function readNodes(String $nodeNames)
     {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
-        ['nodeNames'=>$nodeNames]);
+        try {
+            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
+            ['nodeNames'=>$nodeNames]);
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -117,10 +131,14 @@ class OPCClientController extends BaseController
      */
     public static function writeToNode(String $nodeName, $value, String $dataType)
     {
-        return Http::dump()
-        ->withBody(json_encode(['nodeName' => $nodeName, 'value' => $value, 'dataType' => $dataType]), 'application/json')
-        ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write")
-        ->json_decode();
+        try{
+            return Http::dump()
+            ->withBody(json_encode(['nodeName' => $nodeName, 'value' => $value, 'dataType' => $dataType]), 'application/json')
+            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write")
+            ->json_decode();
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -130,7 +148,11 @@ class OPCClientController extends BaseController
      */
     public static function getInventoryStatus()
     {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory");
+        try{
+            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory");
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -147,7 +169,11 @@ class OPCClientController extends BaseController
      */
     public static function getResource(String $name)
     {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/resource/".$name);
+        try{
+            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/resource/".$name);
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -169,10 +195,14 @@ class OPCClientController extends BaseController
         $batch = Batch::find($id);
 
         if($batch != null){
-            return Http::dump()
-            ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
-            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
-            ->json_decode();
+            try {
+                return Http::dump()
+                    ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
+                    ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
+                    ->json_decode();
+            }catch (\Exception $e) {
+                return $e;
+            }
         }
 
         return 404;
@@ -184,7 +214,11 @@ class OPCClientController extends BaseController
      */
     public static function sanityCheck()
     {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/sanity");
+        try{
+            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/sanity");
+        }catch (\Exception $e) {
+            return $e;
+        }
     }
 
 
