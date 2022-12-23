@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id') -> references('id')->on('user');
             $table->bigInteger('beer_id')->references('id')->on('beers');
             $table->integer('production_speed');
-            $table->integer('status');
+            $table->enum('status',['0','2','4','5','9','11','17']);
             $table->integer('size');
             $table->timestamps();
         });
