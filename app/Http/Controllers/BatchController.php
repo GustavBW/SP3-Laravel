@@ -41,6 +41,7 @@ class BatchController extends Controller
 
         return $batch->id;
     }
+    
     public function storeAndExecute($request)
     {
         /*$id = $this->store($request);
@@ -96,5 +97,14 @@ class BatchController extends Controller
         ]);
         
         return redirect()->route('batches', ['id' => $batch->id]);
+    }
+
+    public function storeResultSet($id, $successful, $failed) {
+        $finishedBatch = new FinishedBatch([
+            'batch_id' => $id,
+            'successful_products' => $successful,
+            'failed_products' => $failed
+        ]);
+        $finishedBatch->save();
     }
 }
