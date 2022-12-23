@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('password');
+            $table->enum('access_level',['1', '2']); //access level: 1 admin 2 user
             $table->rememberToken();
             $table->timestamps();
         });

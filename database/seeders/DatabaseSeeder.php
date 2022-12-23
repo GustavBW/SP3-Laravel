@@ -56,11 +56,13 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Nick Er Sej',
-            'password' => bcrypt('penis')
+            'password' => bcrypt('penis'),
+            'access_level' => '2'
         ]);
         DB::table('users')->insert([
             'name' => 'Alex',
-            'password' => bcrypt('penis')
+            'password' => bcrypt('penis'),
+            'access_level' => '2'
         ]);
         DB::table('batches')->insert([
             'beer_id' => '1',
@@ -78,7 +80,7 @@ class DatabaseSeeder extends Seeder
         DB::table('batches')->insert([
             'beer_id' => '2',
             'size' => '10',
-            'user_id' => '10',
+            'user_id' => '1',
             'production_speed' => '10',
             'status' => '5'
         ]);

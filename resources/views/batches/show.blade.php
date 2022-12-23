@@ -18,6 +18,11 @@
                 <h3>Speed: {{$batch->production_speed}}</h3>
                 <h3>Started by: {{$batch->user_id}}</h3>
                 <h3>Batch status: {{$batch->status}}</h3>
+                <form action="{{ route('destroyBatch', ['id'=> $batch->id]) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100" id="delete">DESTROY</button>
+                    </form>
             </div>
         </div>
         <div class="chart item">

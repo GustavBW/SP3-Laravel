@@ -11,7 +11,10 @@
     <body>
         <nav>
             <div>
-                <p>User: Name</p>
+                <p>User: @if(Auth::check()) 
+                    {{Auth::user()->name}}
+                    @endif
+                </p>
             </div>
             <div style="text-align: center">
                 <h1>BEER MACHINE</h1>
@@ -44,11 +47,7 @@
         @endauth
         <footer style="display:flex; column-gap: 1vw; justify-content: center; position: fixed; bottom: 1vh; width: 100vw;">
             <p>Server Status: </p>
-            @if($serverStatus)
-                <p id="current_state">{{$serverStatus}}</p>
-            @else
-                <p>...</p>
-            @endif
+           
         </footer>
 
     </body>

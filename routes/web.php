@@ -31,8 +31,7 @@ Route::post('/doLogin', [LoginController::class, 'login'])->name("doLogin");
 Route::get('/', [views::class, 'index'])->name("home");
 Route::get('/brew', [views::class, 'brew'])->name("brew");
 Route::get('/admin', [views::class, 'admin'])->name("admin");
-Route::get('/batches', [views::class, 'batches'])->name("batches");
-Route::get('/batch/{id}', [views::class, 'batch'])->name("batch");
+Route::delete('/batch/{id}', [BatchController::class, 'destroy'])->name("destroyBatch");
 
 Route::get('/api/getInventory', [views::class, 'getDash'])->name("getDash");
 Route::get('/api/getAdmin', [views::class, 'getAdmin'])->name("getAdmin");
@@ -64,11 +63,11 @@ Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->nam
 
 //NOT PIN LOCKED
 //view batch history
-//Route::get('/batch/history',[BatchController::class,'viewHistory'])->name('batch.history');
+Route::get('/batch/history',[BatchController::class, 'history'])->name('batches.history');
 //get page view for single batch
-//Route::get('/batch/{id}',[BatchController::class,'show'])->name('batch');
+Route::get('/batch/{id}',[BatchController::class,'show'])->name('batch');
 //get page view for all batches
-//Route::get('/batch',[BatchController::class,'index'])->name('batch');
+Route::get('/batches',[BatchController::class,'index'])->name('batches');
 
 
 //-------------------------------------USER API

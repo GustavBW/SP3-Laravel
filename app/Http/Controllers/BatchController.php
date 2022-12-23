@@ -9,6 +9,7 @@ use App\Models\Beer;
 use App\Models\FinishedBatch;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class BatchController extends Controller
 {
@@ -54,7 +55,7 @@ class BatchController extends Controller
         if($batch == null){
             abort(404);
         }
-        return view('batch')
+        return view('batches.show')
             ->with('batch',$batch)
             ->with('result', FinishedBatch::find($id));
     }
@@ -63,6 +64,37 @@ class BatchController extends Controller
     public function history()
     {
         $batchResults = FinishedBatch::all();
+
         return view('batches.history')->with('batchResults', $batchResults);
+    }
+
+    public function destroy($id) {
+        $batch = Batch::find($id);
+        $batch->delete();
+        $finishedBatch = DB::Table('finished_batches')->where('batch_id', $id);
+
+        if($finishedBatch!=null) {
+            $finishedBatch->delete();
+        }
+
+        return redirect()->route('home');
+    }
+
+    public function edit($id){
+        $batch = Batch::find($id);
+
+        return view('batches.edit')->with('batch', $batch);
+    }
+
+    public function update($id, Request $request){
+        $batch = Batch::find($id);
+        $batch->update([
+            'beer_id' => $request->input('beer_id'),
+            'production_speed' => $request->input('production_speed'),
+            'size' => $request->input('size'),
+            'user_id' => Auth::user()->id
+        ]);
+        
+        return redirect()->route('batches', ['id' => $batch->id]);
     }
 }

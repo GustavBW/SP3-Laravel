@@ -20,7 +20,7 @@
         <input type="range" id="speed" min="1" max="600" value="300" oninput="updateSpeed()">
 
         <div style="display: flex;">
-            <input type="checkbox" id="checkbox" name="checkbox" on>
+            <input type="checkbox" id="checkbox" name="checkbox" >
             <label for="checkbox">Run at optimal speed</label>
         </div>
 
@@ -39,6 +39,26 @@
 
         checkbox.addEventListener('change', function() {
             if (this.checked) {
+                switch (document.getElementById("beerType").value) {
+                case "0": //Pilsner
+                    speed(485)
+                    break
+                case '1': //Wheat
+                    speed(155)
+                    break
+                case '2': //IPA
+                    speed(101)
+                    break
+                case '3': //Stout
+                    speed(200)
+                    break
+                case '4': //Ale
+                    speed(85)
+                    break
+                case '5': //Alcohol Free
+                    speed(87)
+                    break
+                }
                 range.disabled = true;
                 num.disabled = true;
             } else {

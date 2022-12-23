@@ -12,7 +12,7 @@ class FinishedBatch extends Model
     protected $fillable = ['brewed', 'failed', 'batch_id'];
 
     public function batch() {
-        return $this->hasOne(Batch::class);
+        return $this->belongsTo(Batch::class);
     }
 
 }
