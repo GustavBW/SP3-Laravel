@@ -10,7 +10,9 @@
     <p>product failed:</p>
     <p id="product_failed">1</p>
 
+    auth for users with acess lvl 2
     <a class="fakeBut" href="{{route('create')}}">Create User</a>
+    <a class="fakeBut" href="{{route('users.index')}}">show users</a>
 @endsection
 @section("script")
     <script>

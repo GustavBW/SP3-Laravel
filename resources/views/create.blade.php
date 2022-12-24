@@ -13,7 +13,11 @@
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
-
+            <select id="selected">
+                <option value="0">User type</option>
+                <option value="1">user</option>
+                <option value="2">admin</option>
+            </select>
             <button type="submit">Create User</button>
         </form>
     </div>

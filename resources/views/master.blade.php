@@ -11,7 +11,7 @@
     <body>
         <nav>
             <div>
-                <p>User: @if(Auth::check()) 
+                <p>User: @if(Auth::check())
                     {{Auth::user()->name}}
                     @endif
                 </p>
@@ -47,7 +47,7 @@
         @endauth
         <footer style="display:flex; column-gap: 1vw; justify-content: center; position: fixed; bottom: 1vh; width: 100vw;">
             <p>Server Status: </p>
-           
+
         </footer>
 
     </body>
@@ -57,7 +57,6 @@
     </script>
     <script src="{{asset('js/functions.js')}}"></script>
     <script>
-        window.on
         x = 1000
         y = setInterval(async => getLiveData(z), x)
         window.onunload = function() {
