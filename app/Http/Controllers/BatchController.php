@@ -99,7 +99,7 @@ class BatchController extends Controller
         return redirect()->route('batches', ['id' => $batch->id]);
     }
 
-    public function storeResultSet($id, $successful, $failed) {
+    public static function storeResultSet($id, $successful, $failed) {
         $finishedBatch = new FinishedBatch([
             'batch_id' => $id,
             'successful_products' => $successful,
