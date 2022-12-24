@@ -112,7 +112,7 @@ class OPCClientController extends BaseController
      *      "second": <message>
      * }
      *
-     * @param $nodeNames, an underscore separated list of nodeNames.
+     * @param $nodeNames, a comma separated list of nodeNames.
      */
     public static function readNodes(String $nodeNames)
     {
@@ -204,6 +204,8 @@ class OPCClientController extends BaseController
     {
         $batch = Batch::find($id);
 
+        self::storeCurrentBatchResult();
+
         if($batch != null){
             try {
             return Http::dump()
@@ -220,6 +222,21 @@ class OPCClientController extends BaseController
             }
         }
         return 404;
+    }
+
+    /**
+     * Calls the Java API reading the nodes: ProductsProduced, ProductsFailed and BatchId,
+     * then forwards the result of these variables to BatchController::storeResultSet().
+     */
+    public static function storeCurrentBatchResult()
+    {
+        $json = json_decode(self::readNodes("ProductsProduced,ProductsFailed,BatchId"));
+        BatchController::storeResultSet(
+            //Using a default value here will prevent Laravel from throwing an error if a part of the path to the field is missing.
+            data_get($json, 'first.BatchId.value','6969696969'),
+            data_get($json, 'first.ProductsProduced.value','-1'),
+            data_get($json, 'first.ProductsFailed.value','-1')
+        );
     }
 
     /**
