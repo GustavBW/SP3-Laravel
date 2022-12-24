@@ -8,10 +8,10 @@
             @csrf
             <h1>Update User</h1>
             <label for="name">Username</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" value="{{$user->name}}">
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" value="{{$user->password}}">
             <select id="selected">
                 <option value="0">User type</option>
                 <option value="1">user</option>
