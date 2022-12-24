@@ -5,7 +5,8 @@
 @section("body")
     <div id="content">
         <h3>Show user</h3>
-        {{$user->name}}<br>
+        <p>User: {{$user->name}}</p><br>
         <a class="fakeBut" href="{{route('users.edit', ['id'=> $user->id])}}">Edit User</a>
+        <a class="fakeBut" href="{{route('users.destroy', ['id'=> $user->id])}}">Delete User</a>
     </div>
 @endsection

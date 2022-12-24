@@ -37,6 +37,7 @@ Route::get('/api/getInventory', [views::class, 'getDash'])->name("getDash");
 Route::get('/api/getAdmin', [views::class, 'getAdmin'])->name("getAdmin");
 Route::get('/api/getServerS', [views::class, 'getServerS'])->name("getServerS");
 
+//show create user page
 Route::get('/create', [UserController::class, 'create'])->name("create");
 Route::post('/create', [UserController::class, 'store'])->name("createStore");
 
