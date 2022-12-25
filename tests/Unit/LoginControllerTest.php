@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class LoginTest extends TestCase
+class LoginControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function failed_login_redirects_back_with_error(){
+    public function testFailedLogin(){
 
         // Create a user manually
         $user = new User([
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
         $this->assertFalse(Auth::check());
     }
 
-    public function successful_login_logs_in_and_remembers_user(){
+    public function testSuccessfulLogin(){
         // Create a user manually
         $user = new User([
             'name' => 'john',
@@ -57,7 +57,7 @@ class LoginTest extends TestCase
         $this->assertTrue(Auth::viaRemember());
     }
 
-    public function show_method_renders_login_view(){
+    public function testShow(){
         // Simulate a GET request to the show method
         $response = $this->get('/login');
 
@@ -65,7 +65,7 @@ class LoginTest extends TestCase
         $response->assertViewIs('login');
     }
     
-    public function logout_method_logs_out_user_and_redirects_to_home(){
+    public function testLogout(){
         // Create a user manually
         $user = new User([
             'name' => 'john',

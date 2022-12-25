@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class BatchTest extends TestCase
+class BatchControllerTest extends TestCase
 {
     public function testIndexMethod()
     {
@@ -152,7 +152,7 @@ class BatchTest extends TestCase
         // Assert that the result is the ID of the batch
         $this->assertSame(1, $result);
     }
-    
+
     public function testShow() {
         // Mock the Batch::find() and FinishedBatch::find() methods
         $batchMock = $this->createMock(stdClass::class);
