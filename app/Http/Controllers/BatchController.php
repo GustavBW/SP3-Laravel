@@ -27,8 +27,6 @@ class BatchController extends Controller
         return view('batches.create')->with('beer_id', $beers);
     }
 
-
-
     //Store created batch
     public function store(Request $request)
     {
