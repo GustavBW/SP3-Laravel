@@ -244,7 +244,7 @@ class UserTest extends TestCase
 
         // Create a mock of the UserController
         $controllerMock = $this->getMockBuilder(UserController::class)
-            ->setMethods(['view'])
+            ->onlyMethods(['view'])
             ->getMock();
 
         // Configure the controller mock to return the view mock when the view() method is called
