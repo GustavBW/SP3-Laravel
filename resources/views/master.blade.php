@@ -26,7 +26,7 @@
                     <li><a href="{{route('admin')}}" id="admin">Admin</a></li>
                     <li><a href="{{route('batches')}}" id="batches">Batches</a></li>
                     @if(Auth::check())
-                        <li><a href="{{route('logout')}}" onclick="clearInterval(y); x = 0" id="logout">Log out</a></li>
+                        <li><a href="{{route('logout')}}" id="logout">Log out</a></li>
                     @else
                         <li ><a href="{{route('login')}}">Log in</a></li>
                     @endif
@@ -37,17 +37,10 @@
             <div id="content">
                 @yield("body")
             </div>
-            <div style="display:flex; justify-content: center; column-gap: 1vw; padding: 1vh" class="buts">
-                <button onclick="setCommand" class="buttons">Reset</button>
-                <button onclick="setCommand('start')" class="buttons">Start</button>
-                <button onclick="setCommand('stop')" class="buttons">Stop</button>
-                <button onclick="setCommand('abort')" class="buttons">Abort</button>
-                <button onclick="setCommand('clear')" class="buttons">Clear</button>
-            </div>
         @endauth
         <footer style="display:flex; column-gap: 1vw; justify-content: center; position: fixed; bottom: 1vh; width: 100vw;">
             <p>Server Status: </p>
-
+            <p id="CurrentState">ikke talt</p>
         </footer>
 
     </body>
@@ -57,22 +50,8 @@
     </script>
     <script src="{{asset('js/functions.js')}}"></script>
     <script>
-        x = 1000
-        y = setInterval(async => getLiveData(z), x)
-        window.onunload = function() {
-            clearInterval(y)
-        }
-        window.onbeforeunload  = function() {
-            clearInterval(y)
-        }
+        setInterval(isDone,1000)
+        setInterval(serverStatus, 1000)
+        setInterval(isDone, 1000)
     </script>
-    <script>
-        function setCommand(var1){
-            fetch('/api/write/set_command/'+var1, {
-                method: 'POST',
-            })
-
-        }
-    </script>
-    @include('auth')
 </html>

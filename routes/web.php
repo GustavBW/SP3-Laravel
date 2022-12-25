@@ -33,17 +33,22 @@ Route::get('/brew', [views::class, 'brew'])->name("brew");
 Route::get('/admin', [views::class, 'admin'])->name("admin");
 Route::delete('/batch/{id}', [BatchController::class, 'destroy'])->name("destroyBatch");
 
-Route::get('/api/getInventory', [views::class, 'getDash'])->name("getDash");
-Route::get('/api/getAdmin', [views::class, 'getAdmin'])->name("getAdmin");
-Route::get('/api/getServerS', [views::class, 'getServerS'])->name("getServerS");
+
+//read
+Route::get('/api/read/inventory', [OPCClientController::class, 'getInventoryStatus'])->name("getDash");
+Route::get('/api/read/nodes/{nodeNames}', [OPCClientController::class, 'readNodes'])->name("getDash");
+Route::get('/api/getAdmin', [views::class, 'getAdmin'])->name("getAdmin");  //rewrite
+Route::get('/api/getServerS', [views::class, 'getServerS'])->name("getServerS"); //rewrite
 
 //show create user page
 Route::get('/create', [UserController::class, 'create'])->name("create");
 Route::post('/create', [UserController::class, 'store'])->name("createStore");
 
-Route::post('/api/write/{id}', [views::class, 'post'])->name("post");
-Route::post('/api/write/set_command/{command}', [views::class, 'sendCommand'])->name("sendCommand");
+Route::post('/api/write/{id}', [views::class, 'post'])->name("post"); //rewrite
+Route::post('/api/write/set_command/{command}', [views::class, 'sendCommand'])->name("sendCommand"); //rewrite
 Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->name("storeAndExecute");
+
+
 
 //-------------------------------------views
 

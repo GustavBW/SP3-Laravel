@@ -26,32 +26,32 @@ class DatabaseSeeder extends Seeder
         DB::table('beers')->insert([
             'type' => 'Pilsner',
             'max_speed' => '600',
-            'optimal_production_speed' => '1'
+            'optimal_production_speed' => '485'
         ]);
         DB::table('beers')->insert([
             'type' => 'Wheat',
             'max_speed' => '300',
-            'optimal_production_speed' => '2'
+            'optimal_production_speed' => '155'
         ]);
         DB::table('beers')->insert([
             'type' => 'IPA',
             'max_speed' => '150',
-            'optimal_production_speed' => '3'
+            'optimal_production_speed' => '101'
         ]);
         DB::table('beers')->insert([
             'type' => 'Stout',
             'max_speed' => '200',
-            'optimal_production_speed' => '4'
+            'optimal_production_speed' => '200'
         ]);
         DB::table('beers')->insert([
             'type' => 'Ale',
             'max_speed' => '100',
-            'optimal_production_speed' => '5',
+            'optimal_production_speed' => '85',
         ]);
         DB::table('beers')->insert([
             'type' => 'Alcohol Free',
             'max_speed' => '125',
-            'optimal_production_speed' => '6'
+            'optimal_production_speed' => '87'
         ]);
 
         DB::table('users')->insert([
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
             'size' => '2',
             'user_id' => '3',
             'production_speed' => '4',
-            'status' => '1'
+            'status' => '3'
         ]);
         DB::table('finished_batches')->insert([
             'batch_id'=>'1',
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
             'size' => '10',
             'user_id' => '1',
             'production_speed' => '10',
-            'status' => '5'
+            'status' => '3'
         ]);
 
         DB::table('batches')->insert([
@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
             'size' => '20',
             'user_id' => '20    ',
             'production_speed' => '20',
-            'status' => '16'
+            'status' => '3'
         ]);
 
 

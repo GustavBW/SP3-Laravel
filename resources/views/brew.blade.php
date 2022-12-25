@@ -41,22 +41,22 @@
             if (this.checked) {
                 switch (document.getElementById("beerType").value) {
                 case "0": //Pilsner
-                    speed(485)
+                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(1))
                     break
                 case '1': //Wheat
-                    speed(155)
+                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(2))
                     break
                 case '2': //IPA
-                    speed(101)
+                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(3))
                     break
                 case '3': //Stout
-                    speed(200)
+                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(4))
                     break
                 case '4': //Ale
-                    speed(85)
+                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(5))
                     break
                 case '5': //Alcohol Free
-                    speed(87)
+                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(6))
                     break
                 }
                 range.disabled = true;

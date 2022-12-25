@@ -44,9 +44,9 @@ class BatchController extends Controller
     
     public function storeAndExecute($request)
     {
-        /*$id = $this->store($request);
+        $id = $this->store($request);
         $json = OPCClientController::executeBatch($id);
-        Log::info($json);*/
+        Log::info($json);
     }
 
     //Show specific batch
@@ -106,5 +106,9 @@ class BatchController extends Controller
             'failed_products' => $failed
         ]);
         $finishedBatch->save();
+    }
+    public static function getOptimalSpeed($id) {
+        $speed = DB::table('beers')->where('id', $id)->value('optimal_production_speed');
+        return $speed;
     }
 }

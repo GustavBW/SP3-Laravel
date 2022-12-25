@@ -7,33 +7,33 @@
     <h1>Dashboard</h1>
     <div class="container">
         <div class="progress">
-            <p id="barley-text">I</p>
-            <p id="barley-full">0%</p>
-            <progress min="0" value="0" max="35000" id="barley"></progress>
+            <p id="Barley-text">I</p>
+            <p id="Barley-full">0%</p>
+            <progress min="0" value="0" max="35000" id="Barley"></progress>
         </div>
 
         <div class="progress">
-            <p id="hops-text">II</p>
-            <p id="hops-full">0%</p>
-            <progress min="0" value="0" max="35000" id="hops"></progress>
+            <p id="Hops-text">II</p>
+            <p id="Hops-full">0%</p>
+            <progress min="0" value="0" max="35000" id="Hops"></progress>
         </div>
 
         <div class="progress">
-            <p id="malt-text">III</p>
-            <p id="malt-full">0%</p>
-            <progress min="0" value="0" max="35000" id="malt"></progress>
+            <p id="Malt-text">III</p>
+            <p id="Malt-full">0%</p>
+            <progress min="0" value="0" max="35000" id="Malt"></progress>
         </div>
 
         <div class="progress">
-            <p id="wheat-text">IV</p>
-            <p id="wheat-full">0%</p>
-            <progress min="0" value="0" max="35000" id="wheat"></progress>
+            <p id="Wheat-text">IV</p>
+            <p id="Wheat-full">0%</p>
+            <progress min="0" value="0" max="35000" id="Wheat"></progress>
         </div>
 
         <div class="progress">
-            <p id="yeast-text">V</p>
-            <p id="yeast-full">0%</p>
-            <progress min="0" value="0" max="35000" id="yeast"></progress>
+            <p id="Yeast-text">V</p>
+            <p id="Yeast-full">0%</p>
+            <progress min="0" value="0" max="35000" id="Yeast"></progress>
         </div>
     </div>
     <div>
@@ -41,9 +41,12 @@
         <p id="maintenance-full">0%</p>
         <progress min="0" value="0" max="30000" id="maintenance"></progress>
     </div>
+    @include('buttons')
 @endsection
 @section("script")
     <script>
-        z = "getInventory"
+        setInterval(() => {
+            inventory()
+        }, 1000);
     </script>
 @endsection

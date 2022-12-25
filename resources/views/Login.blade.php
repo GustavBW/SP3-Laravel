@@ -13,15 +13,17 @@
 
     <div id="content" class="center">
         <div>
-            <h2 class="h2">LOGIN</h2>
+            <h2 class="h2">Login</h2>
             <form method="post" action="{{ route('doLogin') }}">
                 @csrf
                 <div class="form-group mb-3">
                     <label for="name">Username</label>
+                    <br>
                     <input class="form-control" type="text" name="name" id="name">
                 </div>
                 <div class="form-group mb-3">
                     <label for="password">Password</label>
+                    <br>
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <div class="mb-3">
