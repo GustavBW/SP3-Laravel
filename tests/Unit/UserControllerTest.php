@@ -15,8 +15,8 @@ class UserTest extends TestCase
         $userModelMock->expects($this->once())
             ->method('all')
             ->willReturn([
-                [ 'id' => 1, 'name' => 'Alice' ],
-                [ 'id' => 2, 'name' => 'Bob' ],
+                ['id' => 1, 'name' => 'Alice'],
+                ['id' => 2, 'name' => 'Bob'],
             ]);
 
         // Create a mock of the view
@@ -26,8 +26,8 @@ class UserTest extends TestCase
         $viewMock->expects($this->once())
             ->method('with')
             ->with('users', [
-                [ 'id' => 1, 'name' => 'Alice' ],
-                [ 'id' => 2, 'name' => 'Bob' ],
+                ['id' => 1, 'name' => 'Alice'],
+                ['id' => 2, 'name' => 'Bob'],
             ])
             ->willReturnSelf();
 
@@ -231,7 +231,7 @@ class UserTest extends TestCase
         $userModelMock->expects($this->once())
             ->method('find')
             ->with(1)
-            ->willReturn([ 'id' => 1, 'name' => 'Alice' ]);
+            ->willReturn(['id' => 1, 'name' => 'Alice']);
 
         // Create a mock of the view
         $viewMock = $this->createMock(\Illuminate\View\View::class);
@@ -239,7 +239,7 @@ class UserTest extends TestCase
         // Configure the view mock to expect a call to the with() method with the correct data
         $viewMock->expects($this->once())
             ->method('with')
-            ->with('user', [ 'id' => 1, 'name' => 'Alice' ])
+            ->with('user', ['id' => 1, 'name' => 'Alice'])
             ->willReturnSelf();
 
         // Create a mock of the UserController
@@ -309,8 +309,5 @@ class UserTest extends TestCase
 
         // Assert that the result is the expected redirect
         $this->assertSame($redirectMock, $result);
-
     }
-
-
 }
