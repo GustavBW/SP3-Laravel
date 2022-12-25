@@ -60,7 +60,7 @@ class OPCClientController extends BaseController
     {
         try{
             return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
-        ->json_decode();
+            ->json_decode();
         }catch (\Exception $e) {
             return json_encode([
                 'machineStatus'=> 20,
@@ -203,15 +203,16 @@ class OPCClientController extends BaseController
     public static function executeBatch($id)
     {
         $batch = Batch::find($id);
+        $beer = Beer::find($batch->beer_id);
 
         self::storeCurrentBatchResult();
 
-        if($batch != null){
+        if($batch != null || $beer != null){
             try {
-            return Http::dump()
-            ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
-            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
-            ->json_decode();
+                return Http::dump()
+                    ->withBody(json_encode(['id' => $id, 'beerType' => $beer->type, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
+                    ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
+                    ->json_decode();
             }catch (\Exception $e) {
                 return json_encode([
                     'machineStatus'=> 20,
