@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Nick Er Sej',
+            'name' => 'nick',
             'password' => bcrypt('penis'),
             'access_level' => '2'
         ]);
