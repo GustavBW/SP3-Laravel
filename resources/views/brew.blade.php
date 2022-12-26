@@ -5,28 +5,33 @@
 @section("body")
     <div id="content">
     <h1>Brew</h1>
-    <div style="row-gap: 1vh; display: grid;">
-        <select onchange="beertype()" id="beerType">
-            <option value="0">{{App\Http\Controllers\BatchController::getBeerTypes(1)}}</option>
-            <option value="1">{{App\Http\Controllers\BatchController::getBeerTypes(2)}}</option>
-            <option value="2">{{App\Http\Controllers\BatchController::getBeerTypes(3)}}</option>
-            <option value="3">{{App\Http\Controllers\BatchController::getBeerTypes(4)}}</option>
-            <option value="4">{{App\Http\Controllers\BatchController::getBeerTypes(5)}}</option>
-            <option value="5">{{App\Http\Controllers\BatchController::getBeerTypes(6)}}</option>
-        </select>
-        <input type="number" id="quantity" placeholder="quantity" value="300" onkeyup="updateSpeed()">
-        <p id="speed-display">Current speed:</p>
-        <input type="number" id="speedC" value="50" onkeyup="changeSpeed()">
-        <input type="range" id="speed" min="1" max="600" value="300" oninput="updateSpeed()">
+        <form style="row-gap: 1vh; display: grid;" action="{{ route('batch.create') }}" method="post">
+            @csrf
+            <label for="beerType">Select Type</label>
+            <select onchange="beerType()" id="beerType">
+                <option value="0">{{App\Http\Controllers\BatchController::getBeerTypes(1)}}</option>
+                <option value="1">{{App\Http\Controllers\BatchController::getBeerTypes(2)}}</option>
+                <option value="2">{{App\Http\Controllers\BatchController::getBeerTypes(3)}}</option>
+                <option value="3">{{App\Http\Controllers\BatchController::getBeerTypes(4)}}</option>
+                <option value="4">{{App\Http\Controllers\BatchController::getBeerTypes(5)}}</option>
+                <option value="5">{{App\Http\Controllers\BatchController::getBeerTypes(6)}}</option>
+            </select>
 
-        <div style="display: flex;">
-            <input type="checkbox" id="checkbox" name="checkbox" >
-            <label for="checkbox">Run at optimal speed</label>
-        </div>
+            <label for="quantity">Select batch size</label>
+            <input type="number" id="quantity" placeholder="quantity" value="300" onkeyup="updateSpeed()"/>
+            <label for="speedC" id="speed-display">Current speed:</label>
+            <input type="number" id="speedC" value="50" onkeyup="changeSpeed()"/>
+            <label for="speed"></label>
+            <input type="range" id="speed" min="1" max="600" value="300" oninput="updateSpeed()"/>
 
-        <p id="timerTakes">Est time: </p>
-        <button onmouseup="post()">Add production</button>
-    </div>
+            <div style="display: flex;">
+                <input type="checkbox" id="checkbox" name="checkbox" >
+                <label for="checkbox">Run at optimal speed</label>
+            </div>
+
+            <p id="timerTakes">Est time: </p>
+            <button type="submit">Add production</button>
+        </form>
     </div>
 @endsection
 @section("script")

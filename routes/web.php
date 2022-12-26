@@ -66,7 +66,7 @@ Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('bat
 //view batch queue
 //Route::get('/batch/queue',[BatchController::class,'viewQueue'])->name('batch.queue');
 //store new batch
-//Route::post('/batch',[BatchController::class,'create'])->name('batch.create');
+Route::post('/batch',[BatchController::class,'store'])->name('batch.create');
 
 //NOT PIN LOCKED
 //view batch history

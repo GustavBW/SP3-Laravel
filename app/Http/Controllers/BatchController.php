@@ -31,20 +31,14 @@ class BatchController extends Controller
     //Store created batch
     public function store(Request $request)
     {
-        $data = json_decode($request);
-
-        $beerType = data_get($data, 'beerType');
-        $speed = data_get($data, 'beerType');
-        $size = data_get($data, 'beerType');
-
         $batch = new Batch();
-        $batch->beer_id = $beerType;
-        $batch->production_speed = $speed;
-        $batch->size = $size;
+        $batch->beer_id = $request->input('beerType');
+        $batch->production_speed = $request->input('speed');
+        $batch->size = $request->input('quantity');
         $batch->user_id = Auth::user()->id;
         $batch->save();
 
-        return $batch->id;
+        return redirect()->route('batch', ['id' => $batch->id]);
     }
 
     public function storeAndExecute($request)
@@ -56,7 +50,7 @@ class BatchController extends Controller
     public function execute($id)
     {
         $json = OPCClientController::executeBatch($id);
-        return redirect()->route('batch',['id' =>$id])
+        return redirect()->route('batch',['id' => $id])
             ->with('batch',Batch::find($id))
             ->with('executionResult', $json)
             ->with('result', FinishedBatch::find($id));
