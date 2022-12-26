@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         //
         $this->app->bind(OPCClientController::class, function ($app) {
             return OPCClientController::initialize(
-                OPCClientController::$OpcApiIp,OPCClientController::$OpcApiPort
+                OPCClientController::$MachineIP,OPCClientController::$MachinePort
             );
         });
     }

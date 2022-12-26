@@ -18,6 +18,8 @@ class OPCClientController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     static $OpcApiIp = "127.0.0.1"; //replace with ip of API
     static $OpcApiPort = "4242";
+    static $MachineIP = "198.166.0.2"; //replace with ip of Machine
+    static $MachinePort = "";
 
     /**
      * Initializes client to connect to the given ip.
@@ -35,8 +37,8 @@ class OPCClientController extends BaseController
     {
         try{
             return json_decode(Http::dump()
-        ->withBody(json_encode(['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]), 'application/json')
-        ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
+                ->withBody(json_encode(['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]), 'application/json')
+                ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
             );
         }catch (\Exception $e) {
             return json_encode(['status' => $e->getCode(), 'error' => $e->getMessage()]);
