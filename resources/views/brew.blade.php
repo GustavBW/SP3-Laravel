@@ -7,12 +7,12 @@
     <h1>Brew</h1>
     <div style="row-gap: 1vh; display: grid;">
         <select onchange="beertype()" id="beerType">
-            <option value="0">Pilsner</option>
-            <option value="1">Wheat</option>
-            <option value="2">IPA</option>
-            <option value="3">Stout</option>
-            <option value="4">Ale</option>
-            <option value="5">Alcohol Free</option>
+            <option value="0">{{App\Http\Controllers\BatchController::getBeerTypes(1)}}</option>
+            <option value="1">{{App\Http\Controllers\BatchController::getBeerTypes(2)}}</option>
+            <option value="2">{{App\Http\Controllers\BatchController::getBeerTypes(3)}}</option>
+            <option value="3">{{App\Http\Controllers\BatchController::getBeerTypes(4)}}</option>
+            <option value="4">{{App\Http\Controllers\BatchController::getBeerTypes(5)}}</option>
+            <option value="5">{{App\Http\Controllers\BatchController::getBeerTypes(6)}}</option>
         </select>
         <input type="number" id="quantity" placeholder="quantity" value="300" onkeyup="updateSpeed()">
         <p id="speed-display">Current speed:</p>
@@ -25,38 +25,36 @@
         </div>
 
         <p id="timerTakes">Est time: </p>
-        <button onmouseup="prompt()">Start production</button>
+        <button onmouseup="post()">add production</button>
     </div>
     </div>
 @endsection
 @section("script")
     <script>
-        z = "getServerS"
-
+        document.getElementById("beerType").value = 0
         const range = document.getElementById('speed');
         const num = document.getElementById('speedC');
         const checkbox = document.getElementById('checkbox');
-
         checkbox.addEventListener('change', function() {
             if (this.checked) {
                 switch (document.getElementById("beerType").value) {
                 case "0": //Pilsner
-                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(1))
+                    changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(1)}})
                     break
                 case '1': //Wheat
-                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(2))
+                    changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(2)}})
                     break
                 case '2': //IPA
-                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(3))
+                    changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(3)}})
                     break
                 case '3': //Stout
-                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(4))
+                    changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(4)}})
                     break
                 case '4': //Ale
-                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(5))
+                    changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(5)}})
                     break
                 case '5': //Alcohol Free
-                    speed(App\Http\Controllers\BatchController::getOptimalSpeed(6))
+                    changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(6)}})
                     break
                 }
                 range.disabled = true;
@@ -92,22 +90,22 @@
         function beertype(){
             switch (document.getElementById("beerType").value) {
                 case "0": //Pilsner
-                    speed(600)
+                    speed({{App\Http\Controllers\BatchController::getMaxSpeed(1)}})
                     break
                 case '1': //Wheat
-                    speed(300)
+                    speed({{App\Http\Controllers\BatchController::getMaxSpeed(2)}})
                     break
                 case '2': //IPA
-                    speed(150)
+                    speed({{App\Http\Controllers\BatchController::getMaxSpeed(3)}})
                     break
                 case '3': //Stout
-                    speed(200)
+                    speed({{App\Http\Controllers\BatchController::getMaxSpeed(4)}})
                     break
                 case '4': //Ale
-                    speed(100)
+                    speed({{App\Http\Controllers\BatchController::getMaxSpeed(5)}})
                     break
                 case '5': //Alcohol Free
-                    speed(125)
+                    speed({{App\Http\Controllers\BatchController::getMaxSpeed(6)}})
                     break
             }
         }
@@ -122,13 +120,18 @@
             updateSpeed()
         }
 
+        function changeSpeedVal(val){
+            document.getElementById("speed").value = val
+            updateSpeed()
+        }
+
         function changeSpeed(){
             document.getElementById("speed").value = document.getElementById("speedC").value
             updateSpeed()
         }
 
         function updateSpeed() {
-            var speed = document.getElementById('speed').value;
+            let speed = document.getElementById('speed').value;
             document.getElementById('speedC').value = speed;
             estTime()
         }
@@ -151,7 +154,7 @@
             return answer
         }
 
-        function prompt(){
+        function post(){
             estTimeVar = ""
             switch (document.getElementById("beerType").value) {
                 case "0": //Pilsner
@@ -178,7 +181,7 @@
                 "speed": document.getElementById("speed").value,
                 "size": document.getElementById("quantity").value
             };
-            fetch('{{route("storeAndExecute")}}', {
+            fetch('{{route("store")}}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -186,8 +189,7 @@
                 body: JSON.stringify(obj)
             })
                 .then(response => response.json())
-                .then(data => console.log(data));
-            console.table(obj)
+                .then(data => console.table(data));
         }
 
         function trueCost(barley, hops, malt, yeast, wheat){
@@ -210,5 +212,6 @@
         function func(var1, ingredients){
             console.log((var1).innerText = var1+": "+ ingredients.get(var1))
         }
+        document.getElementById("brew").classList.add("selected");
     </script>
 @endsection

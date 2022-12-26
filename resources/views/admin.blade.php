@@ -20,6 +20,7 @@
 @endsection
 @section("script")
     <script>
+        document.getElementById("admin").classList.add("selected");
         setInterval(() => {
             adminStats();
         }, 1000);

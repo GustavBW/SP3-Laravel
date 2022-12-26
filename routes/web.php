@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\OPCClientController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\views;
 use Illuminate\Support\Facades\Route;
 
@@ -47,8 +47,8 @@ Route::post('/create', [UserController::class, 'store'])->name("createStore");
 Route::post('/api/write/{id}', [views::class, 'post'])->name("post"); //rewrite
 Route::post('/api/write/set_command/{command}', [views::class, 'sendCommand'])->name("sendCommand"); //rewrite
 Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->name("storeAndExecute");
-
-
+Route::post('/api/write/brew/store', [BatchController::class, 'store'])->name("store");
+Route::post('/batch/store/current', [OPCClientController::class, 'storeCurrentBatchResult']);
 
 //-------------------------------------views
 
@@ -57,7 +57,7 @@ Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->nam
 //get batch information edit view
 //Route::get('/batch/{id}/edit',[BatchController::class,'edit'])->name('batch.edit');
 //adds batch id {id} to active execution queue
-//Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('batch.execute');
+Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('batch.execute');
 //remove batch
 //Route::delete('/batch/{id}',[BatchController::class,'destroy'])->name('batch.delete');
 //update information on specified batch to equal given request body json data

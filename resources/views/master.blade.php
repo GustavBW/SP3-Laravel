@@ -45,13 +45,8 @@
 
     </body>
     @yield('script')
-    <script>
-        document.getElementById("batches").classList.add("selected");
-    </script>
     <script src="{{asset('js/functions.js')}}"></script>
     <script>
-        setInterval(isDone,1000)
         setInterval(serverStatus, 1000)
-        setInterval(isDone, 1000)
     </script>
 </html>

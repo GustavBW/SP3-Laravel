@@ -23,10 +23,19 @@
                         @csrf
                         <button type="submit" class="btn btn-danger w-100" id="delete">DESTROY</button>
                     </form>
+
+                <form action="{{route('batch.execute',['id' => $batch->id])}}" method="POST">
+                    @csrf
+                    <button type="submit">Get Me Machined</button>
+                </form>
+                @if($executionResult != null)
+                    <p>Error:</p>
+                    <p>{{data_get($executionResult,'errorMessage','invalid response')}}</p>
+                @endif
+
             </div>
         </div>
         <div class="chart item">
-                <h4>Total Production: {{$batch->size}}</h4>
                 <canvas id="doughnut"></canvas>
                 <canvas id="myChart"></canvas>
         </div>

@@ -10,20 +10,13 @@
             <div class="item">
                 <h3>Batch</h3>
                 <a href="{{route('batch', ['id' => $batch->id])}}">id: {{ $batch->id }}</a>
-                <h3>Type: {{ $options[$batch->beer_id] }}</h3>
+                <h3>Type: {{ $beerTypes[$batch->beer_id - 1]->type }}</h3>
             </div>
         @endforeach
     </div>
 @endsection
 @section("script")
     <script>
-        const options = {
-            'Pilsner': '0',
-            'Wheat': '1',
-            'IPA': '2',
-            'Stout': '3',
-            'Ale': '4',
-            'Alcohol Free': '5'
-        };
+        document.getElementById("batches").classList.add("selected");
     </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\OPCClientController;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $this->app->bind(OPCClientController::class, function ($app) {
+            return OPCClientController::initialize(
+                OPCClientController::$OpcApiIp,OPCClientController::$OpcApiPort
+            );
+        });
     }
 }

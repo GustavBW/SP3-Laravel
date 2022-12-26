@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
+use App\Models\Beer;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Http;
 class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    static $OpcApiIp = "192.168.0.174"; //replace with ip of API
+    static $OpcApiIp = "127.0.0.1"; //replace with ip of API
     static $OpcApiPort = "4242";
 
     /**
@@ -33,10 +34,10 @@ class OPCClientController extends BaseController
     public static function initialize($ip, $port)
     {
         try{
-            return Http::dump()
+            return json_decode(Http::dump()
         ->withBody(json_encode(['protocol' => 'opc.tcp', 'ip' => $ip, 'port' => $port]), 'application/json')
         ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/initialize")
-        ->json_decode();
+            );
         }catch (\Exception $e) {
             return json_encode(['status' => $e->getCode(), 'error' => $e->getMessage()]);
         }
@@ -59,8 +60,8 @@ class OPCClientController extends BaseController
     public static function getMachineStatus()
     {
         try{
-            return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
-            ->json_decode();
+            return json_decode(Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client")
+            );
         }catch (\Exception $e) {
             return json_encode([
                 'machineStatus'=> 20,
@@ -79,10 +80,10 @@ class OPCClientController extends BaseController
     public static function setMachineCommand(String $command, bool $autoExecute)
     {
         try{
-        return Http::dump()
+        return json_decode(Http::dump()
             ->withBody(json_encode(['autoExecute' => $autoExecute]), 'application/json')
             ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
-            ->json_decode();
+            );
         }catch (\Exception $e) {
             return json_encode([
                 'machineStatus'=> 20,
@@ -117,8 +118,8 @@ class OPCClientController extends BaseController
     public static function readNodes(String $nodeNames)
     {
         try {
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
-        ['nodeNames'=>$nodeNames]);
+        return json_decode(Http::dump()->get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
+        ['nodeNames'=>$nodeNames]));
         }catch (\Exception $e) {
             return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
@@ -142,10 +143,10 @@ class OPCClientController extends BaseController
     public static function writeToNode(String $nodeName, $value, String $dataType)
     {
         try{
-        return Http::dump()
+        return json_decode(Http::dump()
             ->withBody(json_encode(['nodeName' => $nodeName, 'value' => $value, 'dataType' => $dataType]), 'application/json')
         ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/write")
-        ->json_decode();
+        );
         }catch (\Exception $e) {
             return json_encode(['status' => $e->getCode(), 'error' => $e->getMessage()]);
         }
@@ -159,7 +160,7 @@ class OPCClientController extends BaseController
     public static function getInventoryStatus()
     {
         try{
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory");
+        return json_decode(Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/inventory"));
         }catch (\Exception $e) {
             return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
@@ -180,7 +181,7 @@ class OPCClientController extends BaseController
     public static function getResource(String $name)
     {
         try{
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/resource/".$name);
+        return json_decode(Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/resource/".$name));
         }catch (\Exception $e) {
             return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
@@ -207,19 +208,13 @@ class OPCClientController extends BaseController
 
         self::storeCurrentBatchResult();
 
-        if($batch != null || $beer != null){
+        if(!($batch == null && $beer == null)){
             try {
-<<<<<<< Updated upstream
-                return Http::dump()
+
+                return json_decode(Http::dump()
                     ->withBody(json_encode(['id' => $id, 'beerType' => $beer->type, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
                     ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
-                    ->json_decode();
-=======
-            return Http::dump()
-                ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
-                ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
-                ->json_decode();
->>>>>>> Stashed changes
+                    );
             }catch (\Exception $e) {
                 return json_encode([
                     'machineStatus'=> 20,
@@ -238,12 +233,12 @@ class OPCClientController extends BaseController
      */
     public static function storeCurrentBatchResult()
     {
-        $json = json_decode(self::readNodes("ProductsProduced,ProductsFailed,BatchId"));
+        $json = self::readNodes("ProductsProduced,ProductsFailed,BatchId");
         BatchController::storeResultSet(
             //Using a default value here will prevent Laravel from throwing an error if a part of the path to the field is missing.
-            data_get($json, 'first.BatchId.value','6969696969'),
-            data_get($json, 'first.ProductsProduced.value','-1'),
-            data_get($json, 'first.ProductsFailed.value','-1')
+            strval(data_get($json, 'first.BatchId.value.value','6969696969')),
+            strval(data_get($json, 'first.ProductsProduced.value.value','-1')),
+            strval(data_get($json, 'first.ProductsFailed.value.value','-1'))
         );
     }
 
@@ -254,7 +249,7 @@ class OPCClientController extends BaseController
     public static function sanityCheck()
     {
         try{
-        return Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/sanity");
+        return json_decode(Http::get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/sanity"));
         }catch (\Exception $e) {
             return json_encode(['status' => 500, 'error' => 'Sanity check failed. See: ' . $e->getMessage()]);
         }

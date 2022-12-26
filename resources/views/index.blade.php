@@ -37,14 +37,15 @@
         </div>
     </div>
     <div>
-        <p id="maintenance-text">V</p>
-        <p id="maintenance-full">0%</p>
-        <progress min="0" value="0" max="30000" id="maintenance"></progress>
+        <p id="MaintenanceCounter-text">V</p>
+        <p id="MaintenanceCounter-full">0%</p>
+        <progress min="0" value="0" max="30000" id="MaintenanceCounter"></progress>
     </div>
     @include('buttons')
 @endsection
 @section("script")
     <script>
+        document.getElementById("dashboard").classList.add("selected");
         setInterval(() => {
             inventory()
         }, 1000);

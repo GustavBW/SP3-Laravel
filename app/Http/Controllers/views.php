@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beer;
 use App\Models\User;
 use App\Models\Batch;
 use Illuminate\Http\Request;
 use App\Models\FinishedBatch;
+use App\Http\Controllers\OPCClientController;
 
 class views extends Controller
 {

@@ -16,8 +16,9 @@ class BatchController extends Controller
     //Return view of all batches
     public function index()
     {
-        $batches = Batch::all();
-        return view('batches.index')->with('batches', $batches);
+        return view('batches.index')
+            ->with('batches', Batch::all())
+            ->with('beerTypes', Beer::all());
     }
 
     //Create batch with specific beer id
@@ -32,21 +33,35 @@ class BatchController extends Controller
     //Store created batch
     public function store(Request $request)
     {
+        $data = $request->json();
+
+        $beerType = $data->beerType;
+        $speed = $data->speed;
+        $size = $data->size;
+
         $batch = new Batch();
-        $batch->beer_id = $request->input('beer_id');
-        $batch->production_speed = $request->input('production_speed');
-        $batch->size = $request->input('size');
+        $batch->beer_id = $beerType;
+        $batch->production_speed = $speed;
+        $batch->size = $size;
         $batch->user_id = Auth::user()->id;
         $batch->save();
 
         return $batch->id;
     }
-    
+
     public function storeAndExecute($request)
     {
         $id = $this->store($request);
         $json = OPCClientController::executeBatch($id);
         Log::info($json);
+    }
+    public function execute($id)
+    {
+        $json = OPCClientController::executeBatch($id);
+        return redirect()->route('batch',['id' =>$id])
+            ->with('batch',Batch::find($id))
+            ->with('executionResult', $json)
+            ->with('result', FinishedBatch::find($id));
     }
 
     //Show specific batch
@@ -58,7 +73,8 @@ class BatchController extends Controller
         }
         return view('batches.show')
             ->with('batch',$batch)
-            ->with('result', FinishedBatch::find($id));
+            ->with('result', FinishedBatch::find($id))
+            ->with('executionResult','null');
     }
 
     //Not sure if implemented correctly
@@ -95,13 +111,13 @@ class BatchController extends Controller
             'size' => $request->input('size'),
             'user_id' => Auth::user()->id
         ]);
-        
+
         return redirect()->route('batches', ['id' => $batch->id]);
     }
 
     public static function storeResultSet($id, $successful, $failed) {
         $finishedBatch = new FinishedBatch([
-            'batch_id' => $id,
+            'batch_id' => $id == 0 ? 9999999 : $id,
             'successful_products' => $successful,
             'failed_products' => $failed
         ]);
@@ -109,6 +125,14 @@ class BatchController extends Controller
     }
     public static function getOptimalSpeed($id) {
         $speed = DB::table('beers')->where('id', $id)->value('optimal_production_speed');
+        return $speed;
+    }
+    public static function getMaxSpeed($id) {
+        $speed = DB::table('beers')->where('id', $id)->value('max_speed');
+        return $speed;
+    }
+    public static function getBeerTypes($id) {
+        $speed = DB::table('beers')->where('id', $id)->value('type');
         return $speed;
     }
 }
