@@ -210,11 +210,10 @@ class OPCClientController extends BaseController
 
         if(!($batch == null && $beer == null)){
             try {
-
-                return json_decode(Http::dump()
-                    ->withBody(json_encode(['id' => $id, 'beerType' => $beer->type, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
-                    ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
-                    );
+            return Http::dump()
+                ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
+                ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
+                ->json_decode();
             }catch (\Exception $e) {
                 return json_encode([
                     'machineStatus'=> 20,

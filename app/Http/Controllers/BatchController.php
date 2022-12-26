@@ -28,8 +28,6 @@ class BatchController extends Controller
         return view('batches.create')->with('beer_id', $beers);
     }
 
-
-
     //Store created batch
     public function store(Request $request)
     {
@@ -119,9 +117,6 @@ class BatchController extends Controller
         $finishedBatch = new FinishedBatch([
             'batch_id' => $id == 0 ? 9999999 : $id,
             'successful_products' => $successful,
-            'failed_products' => $failed
-        ]);
-        $finishedBatch->save();
     }
     public static function getOptimalSpeed($id) {
         $speed = DB::table('beers')->where('id', $id)->value('optimal_production_speed');

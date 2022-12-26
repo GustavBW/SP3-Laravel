@@ -55,41 +55,41 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'nick',
-            'password' => bcrypt('penis'),
+            'name' => 'Nick',
+            'password' => bcrypt('sha256'),
             'access_level' => '2'
         ]);
         DB::table('users')->insert([
             'name' => 'Alex',
-            'password' => bcrypt('penis'),
+            'password' => bcrypt('Sikkert_password'),
             'access_level' => '2'
         ]);
         DB::table('batches')->insert([
             'beer_id' => '1',
-            'size' => '2',
-            'user_id' => '3',
-            'production_speed' => '4',
+            'size' => '300',
+            'user_id' => '1',
+            'production_speed' => '300',
             'status' => '3'
         ]);
         DB::table('finished_batches')->insert([
             'batch_id'=>'1',
-            'successful_products'=>'2',
-            'failed_products' => '3'
+            'successful_products'=>'250',
+            'failed_products' => '50'
         ]);
 
         DB::table('batches')->insert([
             'beer_id' => '2',
-            'size' => '10',
-            'user_id' => '1',
-            'production_speed' => '10',
+            'size' => '100',
+            'user_id' => '2',
+            'production_speed' => '100',
             'status' => '3'
         ]);
 
         DB::table('batches')->insert([
             'beer_id' => '3',
-            'size' => '20',
-            'user_id' => '20    ',
-            'production_speed' => '20',
+            'size' => '246',
+            'user_id' => '1',
+            'production_speed' => '200',
             'status' => '3'
         ]);
 
