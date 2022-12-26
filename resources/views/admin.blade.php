@@ -13,12 +13,14 @@
     <p>product failed:</p>
     <p id="ProductsFailed">ikke talt</p>
     
+    @if(Auth::user())
     @if(Auth::user()->access_level == 2)
     <br>
     Only for admins
     <br><br>
     <a class="fakeBut" href="{{route('create')}}">Create User</a> <br><br>
     <a class="fakeBut" href="{{route('users.index')}}">Show users</a>
+    @endif
     @endif
     @include('buttons')
 @endsection

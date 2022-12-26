@@ -8,7 +8,7 @@
         <form style="row-gap: 1vh; display: grid;" action="{{ route('batch.create') }}" method="post">
             @csrf
             <label for="beerType">Select Type</label>
-            <select onchange="beerType()" id="beerType">
+            <select onchange="beerType()" id="beerType" name="beerType">
                 <option value="0">{{App\Http\Controllers\BatchController::getBeerTypes(1)}}</option>
                 <option value="1">{{App\Http\Controllers\BatchController::getBeerTypes(2)}}</option>
                 <option value="2">{{App\Http\Controllers\BatchController::getBeerTypes(3)}}</option>
@@ -18,9 +18,9 @@
             </select>
 
             <label for="quantity">Select batch size</label>
-            <input type="number" id="quantity" placeholder="quantity" value="300" onkeyup="updateSpeed()"/>
+            <input name="size"type="number" id="quantity" placeholder="quantity" value="300" onkeyup="updateSpeed()"/>
             <label for="speedC" id="speed-display">Current speed:</label>
-            <input type="number" id="speedC" value="50" onkeyup="changeSpeed()"/>
+            <input name="speed" type="number" id="speedC" value="50" onkeyup="changeSpeed()"/>
             <label for="speed"></label>
             <input type="range" id="speed" min="1" max="600" value="300" oninput="updateSpeed()"/>
 
