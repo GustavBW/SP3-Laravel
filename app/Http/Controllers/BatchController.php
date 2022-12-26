@@ -24,17 +24,23 @@ class BatchController extends Controller
     //Create batch with specific beer id
     public function create()
     {
-        $beers = Beer::pluck('id');
-        return view('batches.create')->with('beer_id', $beers);
+        $beers = Beer::pluck('id','type');
+
+        return view('brew',['beers' => $beers]);
     }
 
     //Store created batch
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'beerType' => 'required',
+            'speed' => 'required',
+            'size' => 'required'
+        ]);
         $data = $request->json();
      
         $batch = new Batch();
-        $batch->beer_id = intval($request->input('beerType') +1);
+        $batch->beer_id = intval($request->input('beerType'));
         $batch->production_speed = $request->input('speed');
         $batch->size = $request->input('size');
         $batch->user_id = Auth::user()->id;

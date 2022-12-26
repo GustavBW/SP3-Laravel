@@ -30,7 +30,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
 Route::post('/doLogin', [LoginController::class, 'login'])->name("doLogin");
 
 Route::get('/', [views::class, 'index'])->name("home");
-Route::get('/brew', [views::class, 'brew'])->name("brew");
+Route::get('/brew', [BatchController::class, 'create'])->name("brew");
 Route::get('/admin', [views::class, 'admin'])->name("admin");
 Route::delete('/batch/{id}', [BatchController::class, 'destroy'])->name("destroyBatch");
 

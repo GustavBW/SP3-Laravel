@@ -9,12 +9,10 @@
             @csrf
             <label for="beerType">Select Type</label>
             <select onchange="beerType()" id="beerType" name="beerType">
-                <option value="0">{{App\Http\Controllers\BatchController::getBeerTypes(1)}}</option>
-                <option value="1">{{App\Http\Controllers\BatchController::getBeerTypes(2)}}</option>
-                <option value="2">{{App\Http\Controllers\BatchController::getBeerTypes(3)}}</option>
-                <option value="3">{{App\Http\Controllers\BatchController::getBeerTypes(4)}}</option>
-                <option value="4">{{App\Http\Controllers\BatchController::getBeerTypes(5)}}</option>
-                <option value="5">{{App\Http\Controllers\BatchController::getBeerTypes(6)}}</option>
+            <option disabled selected value = "0">Select beer type</option>
+            @foreach($beers as $name => $value)
+                    <option value="{{ $value }}">{{ $name }}</option>
+                    @endforeach
             </select>
 
             <label for="quantity">Select batch size</label>
@@ -43,22 +41,22 @@
         checkbox.addEventListener('change', function() {
             if (this.checked) {
                 switch (document.getElementById("beerType").value) {
-                case "0": //Pilsner
+                case "1": //Pilsner
                     changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(1)}})
                     break
-                case '1': //Wheat
+                case '2': //Wheat
                     changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(2)}})
                     break
-                case '2': //IPA
+                case '3': //IPA
                     changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(3)}})
                     break
-                case '3': //Stout
+                case '4': //Stout
                     changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(4)}})
                     break
-                case '4': //Ale
+                case '5': //Ale
                     changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(5)}})
                     break
-                case '5': //Alcohol Free
+                case '6': //Alcohol Free
                     changeSpeedVal({{App\Http\Controllers\BatchController::getOptimalSpeed(6)}})
                     break
                 }
