@@ -118,11 +118,12 @@ class OPCClientController extends BaseController
     public static function readNodes(String $nodeNames)
     {
         try {
-        return json_decode(Http::dump()->get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
+            return json_decode(Http::dump()->get(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/read",
         ['nodeNames'=>$nodeNames]));
         }catch (\Exception $e) {
             return json_encode(['first' => null, 'second' => $e->getMessage()]);
         }
+
     }
 
     /**
@@ -210,10 +211,10 @@ class OPCClientController extends BaseController
 
         if(!($batch == null && $beer == null)){
             try {
-            return Http::dump()
+            return json_decode(Http::dump()
                 ->withBody(json_encode(['id' => $id, 'beerType' => 0, 'batchSize' => $batch->size, 'speed' => $batch->production_speed]), 'application/json')
                 ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/execute")
-                ->json_decode();
+            );
             }catch (\Exception $e) {
                 return json_encode([
                     'machineStatus'=> 20,
