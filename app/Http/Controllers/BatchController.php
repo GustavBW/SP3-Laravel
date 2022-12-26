@@ -34,7 +34,7 @@ class BatchController extends Controller
         $data = $request->json();
      
         $batch = new Batch();
-        $batch->beer_id = $request->input('beerType');
+        $batch->beer_id = $request->input('beerType') +1;
         $batch->production_speed = $request->input('speed');
         $batch->size = $request->input('size');
         $batch->user_id = Auth::user()->id;

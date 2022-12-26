@@ -10,7 +10,7 @@
             <div class="item">
                 <h3>Batch</h3>
                 <a href="{{route('batch', ['id' => $batch->id])}}">id: {{ $batch->id }}</a>
-                <h3>Type: {{ $beerTypes[$batch->beer_id - 1]->type }}</h3>
+                <h3>Type: {{ $beerTypes[$batch->beer_id -1]->type}}</h3>
             </div>
         @endforeach
     </div>
