@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('create');
+        return view('user.create');
     }
 
     public function show($id)

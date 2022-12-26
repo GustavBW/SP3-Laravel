@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Nick',
             'password' => bcrypt('sha256'),
-            'access_level' => '2'
+            'access_level' => '1'
         ]);
         DB::table('users')->insert([
             'name' => 'Alex',

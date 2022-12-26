@@ -21,12 +21,12 @@
                 <form action="{{ route('destroyBatch', ['id'=> $batch->id]) }}" method="POST">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger w-100" id="delete">DESTROY</button>
+                        <button type="submit" class="btn btn-danger w-100" id="delete">Delete batch</button>
                     </form>
 
                 <form action="{{route('batch.execute',['id' => $batch->id])}}" method="POST">
                     @csrf
-                    <button type="submit">Get Me Machined</button>
+                    <button type="submit">Execute batch</button>
                 </form>
                 @if($executionResult != null)
                     <p>Error:</p>

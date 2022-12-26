@@ -12,10 +12,14 @@
 
     <p>product failed:</p>
     <p id="ProductsFailed">ikke talt</p>
-
-    auth for users with acess lvl 2
-    <a class="fakeBut" href="{{route('create')}}">Create User</a>
-    <a class="fakeBut" href="{{route('users.index')}}">show users</a>
+    
+    @if(Auth::user()->access_level == 2)
+    <br>
+    Only for admins
+    <br><br>
+    <a class="fakeBut" href="{{route('create')}}">Create User</a> <br><br>
+    <a class="fakeBut" href="{{route('users.index')}}">Show users</a>
+    @endif
     @include('buttons')
 @endsection
 @section("script")
