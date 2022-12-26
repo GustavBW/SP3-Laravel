@@ -25,7 +25,7 @@
         </div>
 
         <p id="timerTakes">Est time: </p>
-        <button onmouseup="post()">add production</button>
+        <button onmouseup="post()">Add production</button>
     </div>
     </div>
 @endsection

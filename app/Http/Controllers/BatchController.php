@@ -117,6 +117,7 @@ class BatchController extends Controller
         $finishedBatch = new FinishedBatch([
             'batch_id' => $id == 0 ? 9999999 : $id,
             'successful_products' => $successful,
+        ]);
     }
     public static function getOptimalSpeed($id) {
         $speed = DB::table('beers')->where('id', $id)->value('optimal_production_speed');

@@ -11,11 +11,11 @@
             <input type="text" id="name" name="name" value="{{$user->name}}">
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" value="{{$user->password}}">
+            <input type="password" id="password" name="password">
             <select id="selected">
-                <option value="0">User type</option>
-                <option value="1">user</option>
-                <option value="2">admin</option>
+                <option disabled selected value="0">Select user type</option>
+                <option value="1">User</option>
+                <option value="2">Admin</option>
             </select>
             <button type="submit">Update</button>
         </form>
