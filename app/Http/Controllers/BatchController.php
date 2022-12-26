@@ -31,11 +31,11 @@ class BatchController extends Controller
     //Store created batch
     public function store(Request $request)
     {
-        $data = $request->json();
+        $data = json_decode($request);
 
-        $beerType = $data->beerType;
-        $speed = $data->speed;
-        $size = $data->size;
+        $beerType = data_get($data, 'beerType');
+        $speed = data_get($data, 'beerType');
+        $size = data_get($data, 'beerType');
 
         $batch = new Batch();
         $batch->beer_id = $beerType;
