@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\CommandController;
 use App\Http\Controllers\OPCClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\views;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +36,6 @@ Route::get('/brew', [BatchController::class, 'create'])->name("brew");
 Route::get('/admin', [views::class, 'admin'])->name("admin");
 Route::delete('/batch/{id}', [BatchController::class, 'destroy'])->name("destroyBatch");
 
-
 //read
 Route::get('/api/read/inventory', [OPCClientController::class, 'getInventoryStatus'])->name("getDash");
 Route::get('/api/read/nodes/{nodeNames}', [OPCClientController::class, 'readNodes'])->name("getDash");
@@ -52,12 +53,7 @@ Route::post('/api/write/brew/store', [BatchController::class, 'store'])->name("s
 Route::post('/batch/store/current', [OPCClientController::class, 'storeCurrentBatchResult']);
 
 //-------------------------------------DIRECT MACHINE API
-Route::post('machine', function ($request) {
-    $json = json_decode($request);
-    return response()->json(
-        OPCClientController::setMachineCommand($json->command,$json->autoExecute == 'true')
-    )->cors('*');   
-})->name('machine.command');
+Route::get('machine/{command}/{autoExecute}', [CommandController::class, 'command'])->name('machine.command');
 
 //-------------------------------------BATCH API
 //PIN LOCKED
