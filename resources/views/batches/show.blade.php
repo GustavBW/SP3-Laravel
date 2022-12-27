@@ -30,7 +30,7 @@
                 </form>
                 @if($executionResult != null)
                     <p>Error:</p>
-                    <p>{{data_get($executionResult,'errorMessage','invalid response')}}</p>
+                    <p>{{data_get($executionResult,'errorMessage','Invalid response')}}</p>
                 @endif
 
             </div>
@@ -52,33 +52,8 @@
         let success = 0;
         let failures = 0;
         @if($result != null)
-            success = {{$result->brewed}} ? {{$result->brewed}} : 0;
-            failures = {{$result->failed}} ? {{$result->failed}} : 0;
+            success = {{$result->brewed}}
+            failures = {{$result->failed}}
         @endif
-
-        const doughnutData = {
-            labels: [
-                'sucess',
-                'failed'
-            ],
-            datasets: [{
-                label: 'Produced',
-                data: [success,failures],
-                backgroundColor: [
-                    '#6E644E',
-                    '#2E3033'
-                ],
-                hoverOffset: 4
-            }]
-        };
-
-        newChart(doughnutChart, 'doughnut', doughnutData) //doughnut chart
-
-        function newChart(ctx, type, data){
-            new Chart(ctx, {
-                type: type,
-                data: data,
-            });
-        }
     </script>
 @endsection

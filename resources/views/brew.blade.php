@@ -61,7 +61,6 @@
                     break
                 }
                 range.disabled = true;
-                num.disabled = true;
             } else {
                 range.disabled = false;
                 num.disabled = false;

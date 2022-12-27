@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Http;
 class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    static $OpcApiIp = "10.126.93.178"; //replace with ip of API
+    static $OpcApiIp = "192.168.0.101"; //replace with ip of API
     static $OpcApiPort = "4242";
     static $MachineIP = "192.168.0.122"; //replace with ip of Machine
     static $MachinePort = "";
@@ -238,9 +238,9 @@ class OPCClientController extends BaseController
         $json = self::readNodes("ProductsProduced,ProductsFailed,BatchId");
         BatchController::storeResultSet(
             //Using a default value here will prevent Laravel from throwing an error if a part of the path to the field is missing.
-            strval(data_get($json, 'first.BatchId.value.value','6969696969')),
-            strval(data_get($json, 'first.ProductsProduced.value.value','-1')),
-            strval(data_get($json, 'first.ProductsFailed.value.value','-1'))
+            strval(data_get($json, 'first.BatchId.value.value')),
+            strval(data_get($json, 'first.ProductsProduced.value.value')),
+            strval(data_get($json, 'first.ProductsFailed.value.value'))
         );
     }
 
