@@ -54,7 +54,9 @@ Route::post('/batch/store/current', [OPCClientController::class, 'storeCurrentBa
 //-------------------------------------DIRECT MACHINE API
 Route::post('machine', function ($request) {
     $json = json_decode($request);
-    return OPCClientController::setMachineCommand($json->command,$json->autoExecute == 'true');
+    return response()->json(
+        OPCClientController::setMachineCommand($json->command,$json->autoExecute == 'true')
+    )->cors('*');   
 })->name('machine.command');
 
 //-------------------------------------BATCH API
