@@ -51,10 +51,13 @@ class UserController extends Controller
     }
     public function destroy($id) {
         $user = User::find($id);
+        if(!$user){
+            abort(404);
+        }
         $user->delete();
         return redirect()->route('home');
     }
     public function accessAdmin() {
-        return view('users.admin');
+        return view('user.admin');
     }
 }

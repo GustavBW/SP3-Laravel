@@ -63,7 +63,6 @@
                 range.disabled = true;
             } else {
                 range.disabled = false;
-                num.disabled = false;
             }
         });
 
