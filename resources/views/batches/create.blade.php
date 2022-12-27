@@ -5,7 +5,7 @@
 @section("body")
     <div id="content">
     <h1>Brew</h1>
-        <form style="row-gap: 1vh; display: grid;" action="{{ route('batch.create') }}" method="post">
+        <form style="row-gap: 1vh; display: grid;" action="{{ route('batch.store') }}" method="post">
             @csrf
             <label for="beerType">Select Type</label>
             <select onchange="beerType()" id="beerType" name="beerType">
@@ -183,7 +183,7 @@
                 "speed": document.getElementById("speed").value,
                 "size": document.getElementById("quantity").value
             };
-            fetch('{{route("store")}}', {
+            fetch('{{route("batch.store")}}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

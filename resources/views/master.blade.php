@@ -22,7 +22,7 @@
             <div style="text-align: right">
                 <ul >
                     <li><a href="{{route('home')}}" id="dashboard">Dashboard</a></li>
-                    <li><a href="{{route('brew')}}" id="brew">Brew</a></li>
+                    <li><a href="{{route('batch.create')}}" id="brew">Brew</a></li>
                     <li><a href="{{route('admin')}}" id="admin">Admin</a></li>
                     <li><a href="{{route('batches')}}" id="batches">Batches</a></li>
                     @if(Auth::check())

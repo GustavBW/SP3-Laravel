@@ -26,7 +26,7 @@ class BatchController extends Controller
     {
         $beers = Beer::pluck('id','type');
 
-        return view('brew',['beers' => $beers]);
+        return view('batches.create',['beers' => $beers]);
     }
 
     //Store created batch
@@ -48,12 +48,6 @@ class BatchController extends Controller
         return redirect()->route('batch', ['id'=> $batch->id]);
     }
 
-    public function storeAndExecute($request)
-    {
-        $id = $this->store($request);
-        $json = OPCClientController::executeBatch($id);
-        Log::info($json);
-    }
     public function execute($id)
     {
         $json = OPCClientController::executeBatch($id);

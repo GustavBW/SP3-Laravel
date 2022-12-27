@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\CommandController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OPCClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -31,30 +32,22 @@ Route::get('/login', [LoginController::class, 'show'])->name("login");
 Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
 Route::post('/doLogin', [LoginController::class, 'login'])->name("doLogin");
 
-Route::get('/', [views::class, 'index'])->name("home");
-Route::get('/brew', [BatchController::class, 'create'])->name("brew");
-Route::get('/admin', [views::class, 'admin'])->name("admin");
-Route::delete('/batch/{id}', [BatchController::class, 'destroy'])->name("destroyBatch");
+Route::get('/', [HomeController::class, 'index'])->name("home");
 
 //read
 Route::get('/api/read/inventory', [OPCClientController::class, 'getInventoryStatus'])->name("getDash");
 Route::get('/api/read/nodes/{nodeNames}', [OPCClientController::class, 'readNodes'])->name("getDash");
-Route::get('/api/getAdmin', [views::class, 'getAdmin'])->name("getAdmin");  //rewrite
 Route::get('/api/getServerS', [views::class, 'getServerS'])->name("getServerS"); //rewrite
 
-//show create user page
+//Show create user page
 Route::get('/create', [UserController::class, 'create'])->name("create");
 Route::post('/create', [UserController::class, 'store'])->name("createStore");
 
-Route::post('/api/write/{id}', [views::class, 'post'])->name("post"); //rewrite
-Route::post('/api/write/set_command/{command}', [views::class, 'sendCommand'])->name("sendCommand"); //rewrite
-Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->name("storeAndExecute");
-Route::post('/api/write/brew/store', [BatchController::class, 'store'])->name("store");
-Route::post('/batch/store/current', [OPCClientController::class, 'storeCurrentBatchResult']);
 
 //-------------------------------------DIRECT MACHINE API
 Route::get('machine/{command}/{autoExecute}', [CommandController::class, 'command'])->name('machine.command');
 
+Route::post('/batch/store/current', [OPCClientController::class, 'storeCurrentBatchResult']);
 //-------------------------------------BATCH API
 //PIN LOCKED
 //get batch information edit view
@@ -62,13 +55,12 @@ Route::get('machine/{command}/{autoExecute}', [CommandController::class, 'comman
 //adds batch id {id} to active execution queue
 Route::post('/batch/{id}/execute',[BatchController::class,'execute'])->name('batch.execute');
 //remove batch
-//Route::delete('/batch/{id}',[BatchController::class,'destroy'])->name('batch.delete');
-//update information on specified batch to equal given request body json data
-//Route::put('/batch/{id}',[BatchController::class,'update'])->name('batch.update');
+Route::delete('/batch/{id}',[BatchController::class,'destroy'])->name('batch.delete');
 //view batch queue
 //Route::get('/batch/queue',[BatchController::class,'viewQueue'])->name('batch.queue');
 //store new batch
-Route::post('/batch',[BatchController::class,'store'])->name('batch.create');
+Route::post('/batch',[BatchController::class,'store'])->name('batch.store');
+Route::get('/batch/create', [BatchController::class,'create'])->name('batch.create');
 
 //NOT PIN LOCKED
 //view batch history
@@ -96,3 +88,7 @@ Route::put('/users/store',[UserController::class,'store'])->name('users.store');
 Route::delete('/users/{id}',[UserController::class, 'destroy'])->name('users.destroy');
 //updates the information on user id {id} to equal given request body json data
 Route::post('/users/{id}',[UserController::class, 'update'])->name('users.update');
+//Shows the admin panel
+Route::get('/admin', [AdminController::class, 'accessAdmin'])->name("admin");
+
+

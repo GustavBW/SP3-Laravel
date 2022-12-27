@@ -11,19 +11,7 @@ use App\Http\Controllers\OPCClientController;
 
 class views extends Controller
 {
-    function index(){
-        return view("index")->
-        with('selected', 'dashboard')->
-        with('buttons', True)->
-        with('liveData', True)->
-        with('serverStatus', OPCClientController::getMachineStatus());
-    }
 
-    function brew(){
-        $beers = Beer::pluck('optimal_production_speed', 'id');
-        return view("brew")->
-        with('selected', 'brew');
-    }
 
     function admin(){
         return view("admin")->
@@ -41,9 +29,9 @@ class views extends Controller
         );
 
         $batches = Batch::all();
-        return view("batches")->
-        with('selected', 'batches')->
-        with('liveData', false)->with("batches", $batches)->with("options", $options);
+        return view("batches")
+            ->with("batches", $batches)
+            ->with("options", $options);
     }
 
     function batch($id){

@@ -54,4 +54,7 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('home');
     }
+    public function accessAdmin() {
+        return view('users.admin');
+    }
 }
