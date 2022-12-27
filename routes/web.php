@@ -51,7 +51,11 @@ Route::post('/api/write/brew', [BatchController::class, 'storeAndExecute'])->nam
 Route::post('/api/write/brew/store', [BatchController::class, 'store'])->name("store");
 Route::post('/batch/store/current', [OPCClientController::class, 'storeCurrentBatchResult']);
 
-//-------------------------------------views
+//-------------------------------------DIRECT MACHINE API
+Route::post('machine', function ($request) {
+    $json = json_decode($request);
+    return OPCClientController::setMachineCommand($json->command,$json->autoExecute == 'true');
+})->name('machine.command');
 
 //-------------------------------------BATCH API
 //PIN LOCKED

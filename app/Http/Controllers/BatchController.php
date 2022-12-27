@@ -37,8 +37,7 @@ class BatchController extends Controller
             'speed' => 'required',
             'size' => 'required'
         ]);
-        $data = $request->json();
-     
+
         $batch = new Batch();
         $batch->beer_id = intval($request->input('beerType'));
         $batch->production_speed = $request->input('speed');

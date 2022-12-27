@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Http;
 class OPCClientController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    static $OpcApiIp = "127.0.0.1"; //replace with ip of API
+    static $OpcApiIp = "10.126.93.178"; //replace with ip of API
     static $OpcApiPort = "4242";
-    static $MachineIP = "198.166.0.2"; //replace with ip of Machine
+    static $MachineIP = "192.168.0.122"; //replace with ip of Machine
     static $MachinePort = "";
 
     /**
@@ -82,10 +82,10 @@ class OPCClientController extends BaseController
     public static function setMachineCommand(String $command, bool $autoExecute)
     {
         try{
-        return json_decode(Http::dump()
-            ->withBody(json_encode(['autoExecute' => $autoExecute]), 'application/json')
-            ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
-            );
+            return json_decode(Http::dump()
+                ->withBody(json_encode(['autoExecute' => $autoExecute]), 'application/json')
+                ->post(self::$OpcApiIp . ":" . self::$OpcApiPort . "/client/" . $command)
+                );
         }catch (\Exception $e) {
             return json_encode([
                 'machineStatus'=> 20,
