@@ -6,7 +6,17 @@
     <div id="content">
         <h3>Show user</h3>
         <p>User: {{$user->name}}</p><br>
-        <a class="fakeBut" href="{{route('users.edit', ['id'=> $user->id])}}">Edit User</a>
-        <a class="fakeBut" href="{{route('users.destroy', ['id'=> $user->id])}}">Delete User</a>
+        <button class="fakeBut" href="{{route('users.edit', ['id'=> $user->id])}}">Edit User</a>   
+        <form action="{{route('users.destroy', ['id'=> $user->id])}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type= "submit" class="fakeBut"
+            @if($user->id == Auth::user()->id) 
+            disabled>Can't Delete
+            @else
+            >Delete User
+            @endif     
+            </button>
+</form>
     </div>
 @endsection

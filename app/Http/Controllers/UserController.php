@@ -50,6 +50,7 @@ class UserController extends Controller
         return redirect()->route('users', ['id' => $user->id]);
     }
     public function destroy($id) {
+        
         $user = User::find($id);
         if(!$user){
             abort(404);
