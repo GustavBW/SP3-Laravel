@@ -6,7 +6,11 @@
     <div id="content">
         <h3>Show user</h3>
         <p>User: {{$user->name}}</p><br>
-        <button class="fakeBut" href="{{route('users.edit', ['id'=> $user->id])}}">Edit User</a>   
+        <form action="{{route('users.edit', ['id'=> $user->id])}}" method="POST">
+            @csrf
+            @method('GET')
+            <button type= "submit" class="fakeBut">Edit User</button>
+        </form>
         <form action="{{route('users.destroy', ['id'=> $user->id])}}" method="POST">
             @csrf
             @method('DELETE')

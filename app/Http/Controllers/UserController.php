@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,21 +12,25 @@ class UserController extends Controller
     //Create user
     public function index()
     {
+        abort_if( !Auth::check() || Auth::user()->access_level!=2, 403);
         return view('user.index')->with('users', User::all());
     }
 
     public function create()
     {
+        abort_if( !Auth::check() || Auth::user()->access_level!=2, 403);
         return view('user.create');
     }
 
     public function show($id)
     {
+        abort_if( !Auth::check() || Auth::user()->access_level!=2, 403);
         return view('user.show')->with('user', User::find($id));
     }
 
     public function edit($id)
     {
+        abort_if(!Auth::check() || Auth::user()->access_level!=2, 403);
         return view('user.edit')->with('user',User::find($id));
     }
 

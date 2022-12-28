@@ -62,7 +62,7 @@ Route::get('/batches',[BatchController::class,'index'])->name('batches');
 
 //-------------------------------------USER API
 //Get the create page for users
-Route::get('/create', [UserController::class, 'create'])->name("users.create");
+Route::get('users/create', [UserController::class, 'create'])->name("users.create");
 //stores new user
 Route::put('/users/store',[UserController::class,'store'])->name('users.store');
 //shows edit view of user id {id}
