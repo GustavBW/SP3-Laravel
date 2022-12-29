@@ -28,12 +28,13 @@
             </div>
 
             <p id="timerTakes">Est time: </p>
-            <button type="submit">Add production</button>
+            <button type="submit", id="submit">Add production</button>
         </form>
     </div>
 @endsection
 @section("script")
     <script>
+        const submit = document.getElementById('submit');
         document.getElementById("beerType").value = 0
         const range = document.getElementById('speed');
         const num = document.getElementById('speedC');
@@ -61,9 +62,13 @@
                     break
                 }
                 range.disabled = true;
+                num.disabled = true;
             } else {
                 range.disabled = false;
             }
+        });
+        submit.addEventListener('click', function() {
+            num.disabled = false;
         });
 
         function write(variable, type){
