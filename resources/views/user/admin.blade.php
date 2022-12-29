@@ -22,7 +22,6 @@
     <a class="fakeBut" href="{{route('users.index')}}">Show users</a>
     @endif
     @endif
-    @include('buttons')
 @endsection
 @section("script")
     <script>

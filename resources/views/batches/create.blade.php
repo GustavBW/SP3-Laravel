@@ -65,6 +65,7 @@
                 num.disabled = true;
             } else {
                 range.disabled = false;
+                num.disabled = false;
             }
         });
         submit.addEventListener('click', function() {
